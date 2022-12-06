@@ -72,6 +72,25 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\shaders\ar_object.frag" />
+    <AndroidAsset Include="Assets\shaders\ar_object.vert" />
+    <AndroidAsset Include="Assets\shaders\background_show_depth_color_visualization.frag" />
+    <AndroidAsset Include="Assets\shaders\background_show_depth_color_visualization.vert" />
+    <AndroidAsset Include="Assets\shaders\object.frag" />
+    <AndroidAsset Include="Assets\shaders\object.vert" />
+    <AndroidAsset Include="Assets\shaders\plane.frag" />
+    <AndroidAsset Include="Assets\shaders\plane.vert" />
+    <AndroidAsset Include="Assets\shaders\point_cloud.frag" />
+    <AndroidAsset Include="Assets\shaders\point_cloud.vert" />
+    <AndroidAsset Include="Assets\shaders\screenquad.frag" />
+    <AndroidAsset Include="Assets\shaders\screenquad.vert" />
+    <AndroidAsset Include="Assets\models\anchor.obj" />
+    <AndroidAsset Include="Assets\models\andy.obj" />
+    <AndroidAsset Include="Assets\models\andy_shadow.obj" />
+    <AndroidAsset Include="Assets\models\forehead_left.obj" />
+    <AndroidAsset Include="Assets\models\forehead_right.obj" />
+    <AndroidAsset Include="Assets\models\map_quality_bar.obj" />
+    <AndroidAsset Include="Assets\models\nose.obj" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -115,6 +134,36 @@
     <PackageReference Include="Xamarin.Google.ARCore">
       <Version>1.29.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\anchor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\andy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\andy_shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\andy_spec.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\depth_color_palette.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\ear_fur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\freckles.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\map_quality_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\nose_fur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\models\trigrid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

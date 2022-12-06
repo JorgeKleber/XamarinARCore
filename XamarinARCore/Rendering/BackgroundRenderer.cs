@@ -255,4 +255,4 @@ namespace XamarinARCore.Rendering
 			ShaderUtil.checkGLError(TAG, "BackgroundRendererDraw");
 		}
 	}
-}
+}	
