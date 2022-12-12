@@ -2,20 +2,11 @@
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.OS;
-using Android.Runtime;
 using Android.Util;
-using Android.Views;
-using Android.Widget;
-using AndroidX.Core.App;
 using AndroidX.Core.Content;
-using Google.Android.Material.Snackbar;
 using Google.AR.Core;
-using System;
+using Java.Util;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 
 namespace XamarinARCore.Controller
 {
@@ -44,7 +35,12 @@ namespace XamarinARCore.Controller
 			return isARCoreAvaliable.IsSupported;
 		}
 
-		public bool RequestInstallARCore(bool isDeviceSupported)
+		/// <summary>
+		/// Verifica se o app arcore está instalado.
+		/// </summary>
+		/// <param name="isDeviceSupported"></param>
+		/// <returns></returns>
+		public void RequestInstallARCore(bool isDeviceSupported)
 		{
 			if (isDeviceSupported && arSession == null)
 			{
@@ -52,38 +48,74 @@ namespace XamarinARCore.Controller
 
 				if (isARCoreInstall == ArCoreApk.InstallStatus.InstallRequested)
 				{
-
 					Log.Debug(TAG, "Solicitando instalação do app.");
-					return true;
-
 				}
 				else if (isARCoreInstall == ArCoreApk.InstallStatus.Installed)
 				{
-					//Iniciando uma nova sessão do arcore.
-					arSession = new Session(context);
-					Log.Debug(TAG, "Iniciando a sessão!");
-					return true;
+					arSession = CreateNewARCoreSession();
 				}
 				else
 				{
 					Log.Debug(TAG, "Sessão não iniciada.");
-					return false;
 				}
 			}
 			else
 			{
 				Log.Debug(TAG, "Sessão já foi iniciada.");
-				return false;
 			}
 		}
 
-		public void CameraPermissionRequest()
+		/// <summary>
+		/// Criando uma nova sessão ARCore.
+		/// </summary>
+		private Session CreateNewARCoreSession()
 		{
-			// ARCore requires camera permission to operate.
-			if (ContextCompat.CheckSelfPermission(context, Manifest.Permission.Camera) == (int)Permission.Granted)
-			{
-				//ActivityCompat.RequestPermissions(this, Permissions, REQUEST_LOCATION);
-			}
+			Session newSession = new Session(context);
+			Log.Debug(TAG, "Sessão criada!");
+
+			Google.AR.Core.Config config = new Google.AR.Core.Config(newSession);
+			Log.Debug(TAG, "Configuração criada com sucesso!");
+
+			//configurando o foco da camera, Fixed é o padrão adotado na maioria dos dispositivos.
+			config.SetFocusMode(Google.AR.Core.Config.FocusMode.Fixed);
+			Log.Debug(TAG, "Foco da camera configurado!");
+
+			newSession.Configure(config);
+			Log.Debug(TAG, "Configuração definida!!!");
+
+			
+			return newSession;
+		}
+
+		/// <summary>
+		/// Retorna as configurações da camera.
+		/// </summary>
+		/// <param name="currentSession"></param>
+		/// <returns></returns>
+		private CameraConfig SetCameraConfig(Session currentSession)
+		{
+			Log.Debug(TAG, "Configurando preferencias da camera.");
+
+			
+			CameraConfigFilter cameraConfigFilter = new CameraConfigFilter(currentSession);
+
+			//Limita o frame rate da captura da camera em 30 fps(quadros por segundo).
+			cameraConfigFilter.SetTargetFps(EnumSet.Of(CameraConfig.TargetFps.TargetFps30));
+
+			//Retorna apenas as configurações da camera que não usam depth sensor.(Sensor de profundidade).
+			cameraConfigFilter.SetDepthSensorUsage(EnumSet.Of(CameraConfig.DepthSensorUsage.DoNotUse));
+
+			List<CameraConfig> cameraConfigList = (List<CameraConfig>)currentSession.GetSupportedCameraConfigs(cameraConfigFilter);
+
+			return cameraConfigList[0];
+
+		}
+
+		public void CloseARSession()
+		{
+			Log.Debug(TAG, "Sessão finalizada com sucesso!");
+			arSession.Close();
+			arSession = null;
 		}
 	}
 }
