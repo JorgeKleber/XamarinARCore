@@ -5,6 +5,7 @@ using Android.Content.PM;
 using Android.Util;
 using AndroidX.Core.Content;
 using Google.AR.Core;
+using Google.AR.Core.Exceptions;
 using Java.Util;
 using System.Collections.Generic;
 
@@ -111,6 +112,29 @@ namespace XamarinARCore.Controller
 
 		}
 
+		/// <summary>
+		/// Obtendo metadatas do frame da camera.
+		/// </summary>
+		/// <param name="frame"></param>
+		/// <returns></returns>
+		public long GetMetaDataSensorSensitivity(Frame frame)
+		{
+			try
+			{
+				ImageMetadata metadata = frame.ImageMetadata;
+
+				return metadata.GetLong(ImageMetadata.SensorSensitivity);
+			}
+			catch (MetadataNotFoundException exception)
+			{
+				Log.Debug(TAG, exception.Message);
+				return 0;
+			}
+		}
+
+		/// <summary>
+		/// Encerrando a sessão criada.
+		/// </summary>
 		public void CloseARSession()
 		{
 			Log.Debug(TAG, "Sessão finalizada com sucesso!");
