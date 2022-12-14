@@ -1,6 +1,7 @@
 ﻿using Android;
 using Android.App;
 using Android.Content.PM;
+using Android.Hardware.Camera2;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -9,6 +10,9 @@ using AndroidX.AppCompat.App;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using XamarinARCore.Controller;
+using Android.Views;
+using static Android.Views.TextureView;
+using Android.Graphics;
 
 namespace XamarinARCore
 {
@@ -18,8 +22,15 @@ namespace XamarinARCore
 		private string TAG = typeof(MainActivity).Name;
 
 		private ARCoreController controllerAR;
+		private TextureView cameraView;
 		private TextView statusARcore;
+		private AppCameraListener cameraListener;
+		private AppCameraStateCallback appCallBack;
 		private bool isARCoreAvaliable;
+		private Handler mBackgroundHandler;
+
+		private CameraManager cameraManager;
+		private AppCameraStateCallback cameraStateCallback;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -32,6 +43,7 @@ namespace XamarinARCore
 			SetContentView(Resource.Layout.activity_main);
 
 			statusARcore = FindViewById<TextView>(Resource.Id.tv_status_ar);
+			cameraView = FindViewById<TextureView>(Resource.Id.cameraView);
 
 			isARCoreAvaliable = controllerAR.CheckARcore();
 
@@ -54,11 +66,8 @@ namespace XamarinARCore
 			{
 				statusARcore.Text = "ARCore is NOT avaliable for this device!";
 			}
-		}
 
-		protected override void OnResume()
-		{
-			base.OnResume();
+			InitCamera();
 		}
 
 		protected override void OnDestroy()
@@ -74,6 +83,35 @@ namespace XamarinARCore
 			base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
 			controllerAR.RequestInstallARCore(isARCoreAvaliable);
+		}
+
+		private void InitCamera()
+		{
+			cameraListener = new AppCameraListener(this);
+			cameraView.SurfaceTextureListener = cameraListener;
+		}
+
+		public void OpenCamera()
+		{
+			cameraManager = (CameraManager)this.GetSystemService(CameraService);
+
+			var cameraId = cameraManager.GetCameraIdList()[0];//camera selecionada de forma manual.
+
+			CameraCharacteristics cameraCharacteristics = cameraManager.GetCameraCharacteristics(cameraId);
+
+			int backCamera = (int)cameraCharacteristics.Get(CameraCharacteristics.LensFacing);
+			Log.Debug(TAG, "Camera selecionada: " + backCamera);
+
+			appCallBack = new AppCameraStateCallback(cameraCharacteristics, cameraView);
+
+			cameraManager.OpenCamera(cameraId, appCallBack, mBackgroundHandler);
+		}
+
+		private void StartBackgroundThread()
+		{
+			var mBackgroundThread = new HandlerThread("CameraBackground");
+			mBackgroundThread.Start();
+			mBackgroundHandler = new Handler(mBackgroundThread.Looper);
 		}
 	}
 }
