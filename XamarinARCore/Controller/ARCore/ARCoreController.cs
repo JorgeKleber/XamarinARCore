@@ -3,13 +3,16 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Util;
+using Android.Webkit;
 using AndroidX.Core.Content;
 using Google.AR.Core;
 using Google.AR.Core.Exceptions;
 using Java.Util;
 using System.Collections.Generic;
+using System.Linq;
+using static Google.AR.Core.Config;
 
-namespace XamarinARCore.Controller
+namespace XamarinARCore.Controller.ARCore
 {
 	public class ARCoreController
 	{
@@ -18,6 +21,7 @@ namespace XamarinARCore.Controller
 		private Context context;
 		private Session arSession;
 		private bool requestInstallARCore = true;
+		public ARCoreFaceTracking faceTracking;
 
 		public ARCoreController(Context contextActivity)
 		{
@@ -30,7 +34,6 @@ namespace XamarinARCore.Controller
 		/// <returns></returns>
 		public bool CheckARcore()
 		{
-			
 			ArCoreApk.Availability isARCoreAvaliable = ArCoreApk.Instance.CheckAvailability(context);
 
 			return isARCoreAvaliable.IsSupported;
@@ -53,7 +56,9 @@ namespace XamarinARCore.Controller
 				}
 				else if (isARCoreInstall == ArCoreApk.InstallStatus.Installed)
 				{
-					arSession = CreateNewARCoreSession();
+					arSession = CreateNewARCoreSession(ARmode.AugmentedFace);
+
+					faceTracking = new ARCoreFaceTracking(arSession);
 				}
 				else
 				{
@@ -69,23 +74,31 @@ namespace XamarinARCore.Controller
 		/// <summary>
 		/// Criando uma nova sessão ARCore.
 		/// </summary>
-		private Session CreateNewARCoreSession()
+		private Session CreateNewARCoreSession(ARmode aRmode)
 		{
 			Session newSession = new Session(context);
 			Log.Debug(TAG, "Sessão criada!");
 
-			Google.AR.Core.Config config = new Google.AR.Core.Config(newSession);
+			Google.AR.Core.Config config = SetARConfig(newSession);
+			CameraConfig cameraConfig = SetCameraConfig(newSession, aRmode);
+
+			newSession.Configure(config);
+			newSession.CameraConfig = cameraConfig;
+			Log.Debug(TAG, "Configuração definida!!!");
+
+			return newSession;
+		}
+
+		private Google.AR.Core.Config SetARConfig(Session session)
+		{
+			Google.AR.Core.Config config = new Google.AR.Core.Config(session);
 			Log.Debug(TAG, "Configuração criada com sucesso!");
 
 			//configurando o foco da camera, Fixed é o padrão adotado na maioria dos dispositivos.
 			config.SetFocusMode(Google.AR.Core.Config.FocusMode.Fixed);
 			Log.Debug(TAG, "Foco da camera configurado!");
 
-			newSession.Configure(config);
-			Log.Debug(TAG, "Configuração definida!!!");
-
-			
-			return newSession;
+			return config;
 		}
 
 		/// <summary>
@@ -93,12 +106,41 @@ namespace XamarinARCore.Controller
 		/// </summary>
 		/// <param name="currentSession"></param>
 		/// <returns></returns>
-		private CameraConfig SetCameraConfig(Session currentSession)
+		private CameraConfig SetCameraConfig(Session session, ARmode modeAR)
 		{
+			if (arSession == null)
+			{
+				Log.Debug(TAG, "Sessão não iniciada.");
+			}
+
 			Log.Debug(TAG, "Configurando preferencias da camera.");
 
-			
-			CameraConfigFilter cameraConfigFilter = new CameraConfigFilter(currentSession);
+			CameraConfigFilter cameraConfigFilter;
+			CameraConfig cameraConfigList;
+
+			switch (modeAR)
+			{
+				case ARmode.AugmentedReality:
+
+					cameraConfigFilter = new CameraConfigFilter(session);
+					cameraConfigList = arSession.GetSupportedCameraConfigs(cameraConfigFilter)[0];
+
+					break;
+				case ARmode.AugmentedFace:
+
+					cameraConfigFilter = new CameraConfigFilter(session).SetFacingDirection(CameraConfig.FacingDirection.Front);
+
+					cameraConfigList = session.GetSupportedCameraConfigs(cameraConfigFilter)[0];
+
+					break;
+
+				default:
+
+					cameraConfigFilter = new CameraConfigFilter(session);
+					cameraConfigList = arSession.GetSupportedCameraConfigs(cameraConfigFilter)[0];
+
+					break;
+			}
 
 			//Limita o frame rate da captura da camera em 30 fps(quadros por segundo).
 			cameraConfigFilter.SetTargetFps(EnumSet.Of(CameraConfig.TargetFps.TargetFps30));
@@ -106,9 +148,8 @@ namespace XamarinARCore.Controller
 			//Retorna apenas as configurações da camera que não usam depth sensor.(Sensor de profundidade).
 			cameraConfigFilter.SetDepthSensorUsage(EnumSet.Of(CameraConfig.DepthSensorUsage.DoNotUse));
 
-			List<CameraConfig> cameraConfigList = (List<CameraConfig>)currentSession.GetSupportedCameraConfigs(cameraConfigFilter);
+			return cameraConfigList;
 
-			return cameraConfigList[0];
 
 		}
 
@@ -141,5 +182,11 @@ namespace XamarinARCore.Controller
 			arSession.Close();
 			arSession = null;
 		}
+	}
+
+	public enum ARmode
+	{
+		AugmentedReality,
+		AugmentedFace,
 	}
 }

@@ -2,6 +2,7 @@
 using Android.App;
 using Android.Content.PM;
 using Android.Hardware.Camera2;
+using Android.Opengl;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -10,8 +11,9 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
+using Javax.Microedition.Khronos.Opengles;
 using XamarinARCore.Camera;
-using XamarinARCore.Controller;
+using XamarinARCore.Controller.ARCore;
 
 namespace XamarinARCore
 {
@@ -20,7 +22,7 @@ namespace XamarinARCore
 	{
 		private string TAG = typeof(MainActivity).Name;
 
-		private ARCoreController controllerAR;
+		public ARCoreController controllerAR;
 		private TextureView cameraView;
 		private TextView statusARcore;
 		private AppCameraListener cameraListener;
@@ -29,7 +31,6 @@ namespace XamarinARCore
 		private Handler mBackgroundHandler;
 
 		private CameraManager cameraManager;
-
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -89,20 +90,21 @@ namespace XamarinARCore
 			cameraView.SurfaceTextureListener = cameraListener;
 		}
 
-		public void OpenCamera()
+		public void OpenCameraDevice()
 		{
 			cameraManager = (CameraManager)this.GetSystemService(CameraService);
 
-			var cameraId = cameraManager.GetCameraIdList()[0];//camera selecionada de forma manual.
+			var cameraId = cameraManager.GetCameraIdList()[1];//camera frontal selecionada de forma manual.
 
 			CameraCharacteristics cameraCharacteristics = cameraManager.GetCameraCharacteristics(cameraId);
 
 			int backCamera = (int)cameraCharacteristics.Get(CameraCharacteristics.LensFacing);
 			Log.Debug(TAG, "Camera selecionada: " + backCamera);
 
-			appCallBack = new AppCameraStateCallback(cameraCharacteristics, cameraView);
+			appCallBack = new AppCameraStateCallback(cameraView);
 
 			cameraManager.OpenCamera(cameraId, appCallBack, mBackgroundHandler);
 		}
+
 	}
 }

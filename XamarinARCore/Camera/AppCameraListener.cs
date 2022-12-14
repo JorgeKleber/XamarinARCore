@@ -1,6 +1,7 @@
 ﻿using Android.Graphics;
 using Android.Util;
 using System;
+using XamarinARCore.Controller.ARCore;
 using static Android.Views.TextureView;
 
 namespace XamarinARCore.Camera
@@ -19,23 +20,23 @@ namespace XamarinARCore.Camera
 		public void OnSurfaceTextureAvailable(SurfaceTexture surface, int width, int height)
 		{
 			Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
-			activity.OpenCamera();
+			activity.OpenCameraDevice();
 		}
 
 		public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
 		{
-			Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
+			//Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
 			return true;
 		}
 
 		public void OnSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height)
 		{
-			Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
+			//Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
 		}
 
 		public void OnSurfaceTextureUpdated(SurfaceTexture surface)
 		{
-			Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
+			//Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
 		}
 	}
 }

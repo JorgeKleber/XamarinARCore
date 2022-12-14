@@ -18,7 +18,7 @@ namespace XamarinARCore.Camera
 
 		public override void OnConfigured(CameraCaptureSession session)
 		{
-			cameraCaptureSessions= session;
+			cameraCaptureSessions = session;
 			UpdatePreview();
 		}
 

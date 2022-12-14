@@ -64,7 +64,8 @@
     <Compile Include="Camera\AppCameraListener.cs" />
     <Compile Include="Camera\AppCameraStateCallback.cs" />
     <Compile Include="Camera\AppCaptureDeviceState.cs" />
-    <Compile Include="Controller\ARCoreController.cs" />
+    <Compile Include="Controller\ARCore\ARCoreController.cs" />
+    <Compile Include="Controller\ARCore\ARCoreFaceTracking.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,7 +102,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ARCore\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>

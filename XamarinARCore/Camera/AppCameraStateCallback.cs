@@ -9,7 +9,6 @@ namespace XamarinARCore.Camera
 {
 	public class AppCameraStateCallback : CameraDevice.StateCallback
 	{
-		private CameraCharacteristics cameraCharacteristics;
 		private TextureView tvView;
 		public CaptureRequest.Builder Builder;
 		private CameraDevice cameraDevice;
@@ -17,9 +16,8 @@ namespace XamarinARCore.Camera
 		private AppCaptureDeviceState captureCallback;
 		private Handler handler;
 
-		public AppCameraStateCallback(CameraCharacteristics cameraCharacteristics, TextureView tvView )
+		public AppCameraStateCallback(TextureView tvView)
 		{
-			this.cameraCharacteristics = cameraCharacteristics;
 			this.tvView = tvView;
 
 			captureCallback = new AppCaptureDeviceState(this);
@@ -27,7 +25,7 @@ namespace XamarinARCore.Camera
 
 		public override void OnOpened(CameraDevice camera)
 		{
-			cameraDevice= camera;
+			cameraDevice = camera;
 			createpreview();
 		}
 
@@ -53,6 +51,7 @@ namespace XamarinARCore.Camera
 			Builder.AddTarget(surface);
 			outputs.Add(surface);
 			cameraDevice.CreateCaptureSession(outputs, captureCallback, handler);
+
 		}
 	}
 }
