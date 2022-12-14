@@ -1,19 +1,9 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Hardware.Camera2;
+﻿using Android.Hardware.Camera2;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using static Android.Hardware.Camera2.CameraCaptureSession;
 
-namespace XamarinARCore
+namespace XamarinARCore.Camera
 {
 	public class AppCaptureDeviceState : StateCallback
 	{

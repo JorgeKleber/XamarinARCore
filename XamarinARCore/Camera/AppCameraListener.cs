@@ -3,7 +3,7 @@ using Android.Util;
 using System;
 using static Android.Views.TextureView;
 
-namespace XamarinARCore
+namespace XamarinARCore.Camera
 {
 	public class AppCameraListener : Java.Lang.Object, ISurfaceTextureListener
 	{

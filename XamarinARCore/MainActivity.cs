@@ -5,14 +5,13 @@ using Android.Hardware.Camera2;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Core.App;
 using AndroidX.Core.Content;
+using XamarinARCore.Camera;
 using XamarinARCore.Controller;
-using Android.Views;
-using static Android.Views.TextureView;
-using Android.Graphics;
 
 namespace XamarinARCore
 {
@@ -30,7 +29,6 @@ namespace XamarinARCore
 		private Handler mBackgroundHandler;
 
 		private CameraManager cameraManager;
-		private AppCameraStateCallback cameraStateCallback;
 
 
 		protected override void OnCreate(Bundle savedInstanceState)
@@ -105,13 +103,6 @@ namespace XamarinARCore
 			appCallBack = new AppCameraStateCallback(cameraCharacteristics, cameraView);
 
 			cameraManager.OpenCamera(cameraId, appCallBack, mBackgroundHandler);
-		}
-
-		private void StartBackgroundThread()
-		{
-			var mBackgroundThread = new HandlerThread("CameraBackground");
-			mBackgroundThread.Start();
-			mBackgroundHandler = new Handler(mBackgroundThread.Looper);
 		}
 	}
 }

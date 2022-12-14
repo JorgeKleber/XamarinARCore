@@ -1,19 +1,11 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.Hardware.Camera2;
-using Android.Icu.Util;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static Android.Hardware.Camera2.CameraCaptureSession;
 
-namespace XamarinARCore
+namespace XamarinARCore.Camera
 {
 	public class AppCameraStateCallback : CameraDevice.StateCallback
 	{
@@ -55,7 +47,7 @@ namespace XamarinARCore
 			handler = new Handler();
 
 			SurfaceTexture texture = tvView.SurfaceTexture;
-			//texture.SetDefaultBufferSize(imagedimension.Width, imagedimension.Height);
+			texture.SetDefaultBufferSize(1920, 1080);// setado manualmente.
 			Surface surface = new Surface(texture);
 			Builder = cameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
 			Builder.AddTarget(surface);

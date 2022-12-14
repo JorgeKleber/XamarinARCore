@@ -61,9 +61,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCameraListener.cs" />
-    <Compile Include="AppCameraStateCallback.cs" />
-    <Compile Include="AppCaptureDeviceState.cs" />
+    <Compile Include="Camera\AppCameraListener.cs" />
+    <Compile Include="Camera\AppCameraStateCallback.cs" />
+    <Compile Include="Camera\AppCaptureDeviceState.cs" />
     <Compile Include="Controller\ARCoreController.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -101,6 +101,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ARCore\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
