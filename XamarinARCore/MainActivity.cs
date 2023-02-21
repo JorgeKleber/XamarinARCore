@@ -94,7 +94,8 @@ namespace XamarinARCore
 		{
 			cameraManager = (CameraManager)this.GetSystemService(CameraService);
 
-			var cameraId = cameraManager.GetCameraIdList()[1];//camera frontal selecionada de forma manual.
+			//Camera frontal selecionada de forma manual.
+			var cameraId = cameraManager.GetCameraIdList()[1];
 
 			CameraCharacteristics cameraCharacteristics = cameraManager.GetCameraCharacteristics(cameraId);
 
@@ -105,6 +106,5 @@ namespace XamarinARCore
 
 			cameraManager.OpenCamera(cameraId, appCallBack, mBackgroundHandler);
 		}
-
 	}
 }

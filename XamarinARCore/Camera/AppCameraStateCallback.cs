@@ -41,17 +41,16 @@ namespace XamarinARCore.Camera
 
 		public void createpreview()
 		{
-			//HandlerThread thread = new HandlerThread("Camera Background");
+			HandlerThread thread = new HandlerThread("Camera Background");
 			handler = new Handler();
 
 			SurfaceTexture texture = tvView.SurfaceTexture;
-			texture.SetDefaultBufferSize(1920, 1080);// setado manualmente.
+			texture.SetDefaultBufferSize(1920, 1080); //Setado manualmente.
 			Surface surface = new Surface(texture);
 			Builder = cameraDevice.CreateCaptureRequest(CameraTemplate.Preview);
 			Builder.AddTarget(surface);
 			outputs.Add(surface);
 			cameraDevice.CreateCaptureSession(outputs, captureCallback, handler);
-
 		}
 	}
 }

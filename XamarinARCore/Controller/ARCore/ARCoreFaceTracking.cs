@@ -1,10 +1,9 @@
 ﻿using Google.AR.Core;
-using Org.Apache.Http.Impl.IO;
 using System.Collections.Generic;
 
 namespace XamarinARCore.Controller.ARCore
 {
-	public class ARCoreFaceTracking
+	public class ARCoreFaceTracking 
 	{
 		private static string TAG = typeof(ARCoreFaceTracking).Name;
 
@@ -17,6 +16,9 @@ namespace XamarinARCore.Controller.ARCore
 			this.session = session;	
 		}
 
+		/// <summary>
+		///Face tracking apenas para identificar tudo o que foi rastreável.
+		/// </summary>
 		public void FaceTracking()
 		{
 			faces = new List<AugmentedFace>();

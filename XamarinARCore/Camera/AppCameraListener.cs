@@ -25,7 +25,6 @@ namespace XamarinARCore.Camera
 
 		public bool OnSurfaceTextureDestroyed(SurfaceTexture surface)
 		{
-			//Log.Debug(TAG, "OnSurfaceTextureAvailable inicializada!");
 			return true;
 		}
 
