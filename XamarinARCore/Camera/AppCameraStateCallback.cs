@@ -4,24 +4,30 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using System.Collections.Generic;
+using XamarinARCore.Controller.ARCore;
 
 namespace XamarinARCore.Camera
 {
 	public class AppCameraStateCallback : CameraDevice.StateCallback
 	{
-		private TextureView tvView;
+
+        private static string TAG = typeof(AppCameraStateCallback).Name;
+
+        private TextureView tvView;
 		public CaptureRequest.Builder Builder;
 		private CameraDevice cameraDevice;
 		private List<Surface> outputs = new List<Surface>();
 		private AppCaptureDeviceState captureCallback;
 		private Handler handler;
+		public ARCoreController arCoreController;
 
-		public AppCameraStateCallback(TextureView tvView)
+        public AppCameraStateCallback(TextureView tvView, ARCoreController arCoreController)
 		{
 			this.tvView = tvView;
 
 			captureCallback = new AppCaptureDeviceState(this);
-		}
+			this.arCoreController = arCoreController;
+        }
 
 		public override void OnOpened(CameraDevice camera)
 		{

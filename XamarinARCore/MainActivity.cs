@@ -22,7 +22,7 @@ namespace XamarinARCore
 	{
 		private string TAG = typeof(MainActivity).Name;
 
-		public ARCoreController controllerAR;
+		public  ARCoreController controllerAR;
 		private TextureView cameraView;
 		private TextView statusARcore;
 		private AppCameraListener cameraListener;
@@ -87,7 +87,10 @@ namespace XamarinARCore
 		private void InitCamera()
 		{
 			cameraListener = new AppCameraListener(this);
-			cameraView.SurfaceTextureListener = cameraListener;
+
+			cameraListener.CameraPermissionCheck();
+
+            cameraView.SurfaceTextureListener = cameraListener;
 		}
 
 		public void OpenCameraDevice()
@@ -102,7 +105,9 @@ namespace XamarinARCore
 			int backCamera = (int)cameraCharacteristics.Get(CameraCharacteristics.LensFacing);
 			Log.Debug(TAG, "Camera selecionada: " + backCamera);
 
-			appCallBack = new AppCameraStateCallback(cameraView);
+			appCallBack = new AppCameraStateCallback(cameraView, controllerAR);
+
+
 
 			cameraManager.OpenCamera(cameraId, appCallBack, mBackgroundHandler);
 		}

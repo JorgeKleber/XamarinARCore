@@ -1,6 +1,6 @@
 ﻿using Google.AR.Core;
 using System.Collections.Generic;
-
+using System.Collections;
 namespace XamarinARCore.Controller.ARCore
 {
 	public class ARCoreFaceTracking 
@@ -23,10 +23,12 @@ namespace XamarinARCore.Controller.ARCore
 		{
 			faces = new List<AugmentedFace>();
 
-			foreach (AugmentedFace item in session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace))))
-			{
-				faces.Add(item);
-			}
+			var teste = session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace)));
+
+			//foreach (AugmentedFace item in session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace))))
+			//{
+			//	faces.Add(item);
+			//}
 
 			//foreach (AugmentedFace face in faces)
 			//{

@@ -1,13 +1,17 @@
 ﻿using Android.Hardware.Camera2;
 using Android.OS;
+using Android.Util;
 using System;
+using XamarinARCore.Controller.ARCore;
 using static Android.Hardware.Camera2.CameraCaptureSession;
 
 namespace XamarinARCore.Camera
 {
 	public class AppCaptureDeviceState : StateCallback
 	{
-		public CameraCaptureSession cameraCaptureSessions;
+        private static string TAG = typeof(AppCaptureDeviceState).Name;
+
+        public  CameraCaptureSession cameraCaptureSessions;
 		private AppCameraStateCallback stateCallback;
 		private Handler handler;
 
@@ -29,9 +33,12 @@ namespace XamarinARCore.Camera
 
 		private void UpdatePreview()
 		{
+			Log.Debug(TAG, "Iniciando UpdatePreview");
+
 			//HandlerThread thread = new HandlerThread("Camera Background");
 			handler = new Handler();
 			cameraCaptureSessions.SetRepeatingRequest(stateCallback.Builder.Build(), null, handler);
+
 		}
 	}
 }

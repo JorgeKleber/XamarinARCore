@@ -21,7 +21,6 @@ namespace XamarinARCore.Controller.ARCore
 		private Context context;
 		private Session arSession;
 		private bool requestInstallARCore = true;
-		public ARCoreFaceTracking faceTracking;
 
 		public ARCoreController(Context contextActivity)
 		{
@@ -57,8 +56,6 @@ namespace XamarinARCore.Controller.ARCore
 				else if (isARCoreInstall == ArCoreApk.InstallStatus.Installed)
 				{
 					arSession = CreateNewARCoreSession(ARmode.AugmentedFace);
-
-					faceTracking = new ARCoreFaceTracking(arSession);
 				}
 				else
 				{
@@ -92,10 +89,15 @@ namespace XamarinARCore.Controller.ARCore
 		private Google.AR.Core.Config SetARConfig(Session session)
 		{
 			Google.AR.Core.Config config = new Google.AR.Core.Config(session);
+
 			Log.Debug(TAG, "Configuração criada com sucesso!");
 
 			//configurando o foco da camera, Fixed é o padrão adotado na maioria dos dispositivos.
 			config.SetFocusMode(Google.AR.Core.Config.FocusMode.Fixed);
+
+			//como o a session é augmented face o projeto necessita desta configuração.
+			//config.SetAugmentedFaceMode(AugmentedFaceMode.Mesh3d);
+
 			Log.Debug(TAG, "Foco da camera configurado!");
 
 			return config;
