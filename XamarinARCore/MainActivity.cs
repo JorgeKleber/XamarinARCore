@@ -1,23 +1,27 @@
 ﻿using Android.App;
+using Android.Opengl;
 using Android.OS;
 using Android.Runtime;
-using AndroidX.AppCompat.App;
-using Android.Opengl;
-using Google.AR.Core;
-using Javax.Microedition.Khronos.Opengles;
-using AndroidX.Core.Content;
-using AndroidX.Core.App;
-using Google.Android.Material.Snackbar;
-using System;
-using XamarinARCore.Rendering;
-using XamarinARCore.Helpers;
-using System.Collections.ObjectModel;
-using static Google.AR.Core.AugmentedFace;
 using Android.Util;
+using Android.Views;
+using AndroidX.AppCompat.App;
+using Google.Android.Material.Snackbar;
+using Google.AR.Core;
+using Google.AR.Core.Exceptions;
+using Javax.Microedition.Khronos.Opengles;
+using System;
+using System.Collections.ObjectModel;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using Xamarin.Essentials;
+using XamarinARCore.Helpers;
+using XamarinARCore.Rendering;
+using static Google.AR.Core.AugmentedFace;
+using Config = Google.AR.Core.Config;
 
 namespace XamarinARCore
 {
-	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
 	public class MainActivity : AppCompatActivity, GLSurfaceView.IRenderer
 	{
 		#region CONFIGURATIONS/INITIALIZING
@@ -32,8 +36,9 @@ namespace XamarinARCore
 
 		private bool installRequested;
 
-		//responsável por iniciar a sessão.
-		private Session session;
+        private bool userRequestedInstall = true;
+        //responsável por iniciar a sessão.
+        private Session session;
 		//private SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
 		private DisplayRotationHelper displayRotationHelper;
 		private TrackingStateHelper trackingStateHelper = new TrackingStateHelper(Android.App.Application.Context as Activity);
@@ -72,60 +77,109 @@ namespace XamarinARCore
 			surfaceView.SetRenderer(this);
 			surfaceView.RenderMode = Rendermode.Continuously;
 			surfaceView.SetWillNotDraw(false);
+            installRequested = false;
 
-			installRequested = false;
-		}
+            displayRotationHelper = new DisplayRotationHelper(Platform.CurrentActivity);
+        }
 
-		protected override void OnResume()
+		protected override async void OnResume()
 		{
-			base.OnResume();
+           base.OnResume();
+			await OnResumeAsync();
+        }
 
-			// ARCore requires camera permissions to operate. If we did not yet obtain runtime
-			// permission on Android M and above, now is a good time to ask the user for it.
-			if (ContextCompat.CheckSelfPermission(this, Android.Manifest.Permission.Camera) == Android.Content.PM.Permission.Granted)
-			{
-				if (session != null)
-				{
-					showLoadingMessage();
-					// Note that order matters - see the note in onPause(), the reverse applies here.
-					session.Resume();
-				}
+        private async Task OnResumeAsync()
+        {
+            var arAvailability = ArCoreApk.Instance.CheckAvailability(this);
 
-				// the app may crash here because of a race condition if you've not YET accepted camera 
-				// permissions. just accept the permissions, and then when the app crashes, restart it,
-				// and it should be fine. 
-				surfaceView.OnResume();
-			}
-			else
-			{
-				ActivityCompat.RequestPermissions(this, new string[] { Android.Manifest.Permission.Camera }, 0);
-			}
-		}
+            if (arAvailability.IsUnsupported) //TODO: Create a unsuported view renderer
+                return;
 
-		protected override void OnPause()
+            // ARCore requires camera permission to operate.
+            var permissionResult = await Permissions.CheckStatusAsync<Permissions.Camera>();
+
+            if (permissionResult != PermissionStatus.Granted)
+            {
+                permissionResult = await Permissions.RequestAsync<Permissions.Camera>();
+
+                if (permissionResult != PermissionStatus.Granted)
+                    return;
+            }
+
+            try
+            {
+                if (session is null)
+                {
+                    var installResult = ArCoreApk.Instance.RequestInstall(Platform.CurrentActivity, userRequestedInstall);
+
+                    if (installResult == ArCoreApk.InstallStatus.Installed)
+                    {
+                        // Success: Safe to create the AR session.
+                        session = new Session(this);
+                    }
+                    else if (installResult == ArCoreApk.InstallStatus.InstallRequested)
+                    {
+                        // When this method returns `INSTALL_REQUESTED`:
+                        // 1. ARCore pauses this activity.
+                        // 2. ARCore prompts the user to install or update Google Play
+                        //    Services for AR (market://details?id=com.google.ar.core).
+                        // 3. ARCore downloads the latest device profile data.
+                        // 4. ARCore resumes this activity. The next invocation of
+                        //    requestInstall() will either return `INSTALLED` or throw an
+                        //    exception if the installation or update did not succeed.
+                        userRequestedInstall = false;
+                        return;
+                    }
+
+                    // Set a camera configuration that usese the front-facing camera.
+                    var filter =
+                        new CameraConfigFilter(session).SetFacingDirection(CameraConfig.FacingDirection.Front);
+
+                    var cameraConfig = session.GetSupportedCameraConfigs(filter)[0];
+                    session.CameraConfig = cameraConfig;
+
+                    var config = new Config(session);
+                    config.SetAugmentedFaceMode(Config.AugmentedFaceMode.Mesh3d);
+                    session.Configure(config);
+                }
+            }
+            catch (UnavailableUserDeclinedInstallationException ex)
+            {
+                //TODO: Feedback for user that dont want to install arcore
+                return;
+            }
+
+            session.Resume();
+            //if (View is GLSurfaceView surfaceView)
+            //    surfaceView.OnResume();
+
+            displayRotationHelper.onResume();
+        }
+
+        protected override void OnPause()
 		{
 			base.OnPause();
 
-			if (session != null)
-			{
-				// Note that the order matters - GLSurfaceView is paused first so that it does not try
-				// to query the session. If Session is paused before GLSurfaceView, GLSurfaceView may
-				// still call session.update() and get a SessionPausedException.
+            if (session is null)
+                return;
 
-				surfaceView.OnPause();
-				session.Pause();
-			}
-		}
+            session.Pause();
+
+            //if (View is GLSurfaceView surfaceView)
+            //    surfaceView.OnPause();
+
+            displayRotationHelper.onPause();
+        }
 
 		protected override void OnDestroy()
 		{
-			if (session != null)
-			{
-				session.Close();
-				session = null;
-			}
+            if (session != null)
+            {
+                session.Close();
+                session = null;
+            }
 
-			base.OnDestroy();
+            base.OnDestroy();
 		}
 
 		#endregion
@@ -164,6 +218,10 @@ namespace XamarinARCore
 				return;
 			}
 
+            // Notify ARCore session that the view size changed so that the perspective matrix and
+            // the video background can be properly adjusted.
+            displayRotationHelper.updateSessionIfNeeded(session);
+
 			try
 			{
 				session.SetCameraTextureName(backgroundRenderer.getTextureId());
@@ -197,7 +255,7 @@ namespace XamarinARCore
 				// ARCore's face detection works best on upright faces, relative to gravity.
 				// If the device cannot determine a screen side aligned with gravity, face
 				// detection may not work optimally.
-				Collection<AugmentedFace> faces = (Collection<AugmentedFace>)session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace)));
+				var faces = session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace)));
 
 				foreach (AugmentedFace face in faces)
 				{
@@ -249,7 +307,8 @@ namespace XamarinARCore
 
 		public void OnSurfaceChanged(IGL10 gl, int width, int height)
 		{
-			GLES20.GlViewport(0, 0, width, height);
+            displayRotationHelper.onSurfaceChanged(width, height);
+            GLES20.GlViewport(0, 0, width, height);
 		}
 
 		public void OnSurfaceCreated(IGL10 gl, Javax.Microedition.Khronos.Egl.EGLConfig config)
@@ -259,27 +318,36 @@ namespace XamarinARCore
 			// Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
 			try
 			{
-				// Create the texture and pass it to ARCore session to be filled during update().
-				backgroundRenderer.createOnGlThread(/*context=*/ this);
-				augmentedFaceRenderer.createOnGlThread(this, "models/freckles.png");
-				augmentedFaceRenderer.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
-				noseObject.createOnGlThread(/*context=*/ this, "models/nose.obj", "models/nose_fur.png");
-				noseObject.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
-				noseObject.setBlendMode(ObjectRenderer.BlendMode.AlphaBlending);
-				rightEarObject.createOnGlThread(this, "models/forehead_right.obj", "models/ear_fur.png");
-				rightEarObject.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
-				rightEarObject.setBlendMode(ObjectRenderer.BlendMode.AlphaBlending);
-				leftEarObject.createOnGlThread(this, "models/forehead_left.obj", "models/ear_fur.png");
-				leftEarObject.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
-				leftEarObject.setBlendMode(ObjectRenderer.BlendMode.AlphaBlending);
-			}
+                // Create the texture and pass it to ARCore session to be filled during update().
+                backgroundRenderer.createOnGlThread(this, -1);
+                augmentedFaceRenderer.createOnGlThread(this, "models/freckles.png");
+                augmentedFaceRenderer.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
+
+                TryCreateTexture(noseObject, "models/nose.obj", "models/nose_fur.png");
+                TryCreateTexture(rightEarObject, "models/forehead_right.obj", "models/ear_fur.png");
+                TryCreateTexture(leftEarObject, "models/forehead_left.obj", "models/ear_fur.png");
+
+            }
 			catch (Exception e)
 			{
 				Android.Util.Log.Error(TAG, "Failed to read an asset file", e);
 			}
 		}
 
-		#endregion
-	}
+        private void TryCreateTexture(ObjectRenderer renderer, string objectName, string assetTexture)
+        {
+            try
+            {
+                renderer.createOnGlThread(this, objectName, assetTexture);
+                renderer.setMaterialProperties(0.0f, 1.0f, 0.1f, 6.0f);
+            }
+            catch(Exception e)
+            {
+                Android.Util.Log.Error(TAG, "Failed to create texture", e);
+            }
+        }
+
+        #endregion
+    }
 }
 	

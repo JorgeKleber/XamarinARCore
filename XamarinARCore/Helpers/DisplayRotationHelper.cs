@@ -34,7 +34,7 @@ namespace XamarinARCore.Helpers
 		{
 			displayManager = (DisplayManager)context.GetSystemService(Context.DisplayService);
 			cameraManager = (CameraManager)context.GetSystemService(Context.CameraService);
-			Android.Views.IWindowManager windowManager = (Android.Views.IWindowManager)context.GetSystemService(Context.WindowService);
+			Android.Views.IWindowManager windowManager = (context as Activity).WindowManager; //(Android.Views.IWindowManager)context.GetSystemService(Context.WindowService);
 			display = windowManager.DefaultDisplay;
 		}
 

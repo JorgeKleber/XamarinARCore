@@ -1,25 +1,18 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.Opengl;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Java.IO;
 using Java.Lang;
-using Java.Util;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace XamarinARCore.Rendering
 {
-	/// <summary>
-	/// Shader helper functions.
-	/// </summary>
-	public class ShaderUtil
+    /// <summary>
+    /// Shader helper functions.
+    /// </summary>
+    public class ShaderUtil
 	{
 		/// <summary>
 		/// Metodo que irá carregar o Shader
@@ -34,7 +27,7 @@ namespace XamarinARCore.Rendering
 			//Load shader source code.
 			string code = readShaderFileFromAssets(context, filename);
 
-			// Prepend any #define values specified during this run.
+			//Prepend any #define values specified during this run.
 			string defines = "";
 
 			foreach (var item in defineValuesMap)
@@ -44,16 +37,16 @@ namespace XamarinARCore.Rendering
 
 			code = defines + code;
 
-			// Compiles shader code.
+			//Compiles shader code.
 			int shader = GLES20.GlCreateShader(type);
 			GLES20.GlShaderSource(shader, code);
 			GLES20.GlCompileShader(shader);
 
-			// Get the compilation status.
+			//Get the compilation status.
 			int[] compileStatus = new int[1];
 			GLES20.GlGetShaderiv(shader, GLES20.GlCompileStatus, compileStatus, 0);
 
-			// If the compilation failed, delete the shader.
+			//If the compilation failed, delete the shader.
 			if (compileStatus[0] == 0)
 			{
 				Android.Util.Log.Error(tag, "Error compiling shader: " + GLES20.GlGetShaderInfoLog(shader));
@@ -72,15 +65,15 @@ namespace XamarinARCore.Rendering
 		/** Overload of loadGLShader that assumes no additional #define values to add. */
 		public static int loadGLShader(string tag, Context context, int type, string filename)
 		{
-			try
-			{
-				Dictionary<string, int> emptyDefineValuesMap = new Dictionary<string, int>();
-				return loadGLShader(tag, context, type, filename, emptyDefineValuesMap);
-			}
-			catch (System.Exception e)
-			{
-				throw;
-			}
+			//try
+			//{
+                var emptyDefineValuesMap = new Dictionary<string, int>();
+                return loadGLShader(tag, context, type, filename, emptyDefineValuesMap);
+			//}
+			//catch (System.Exception e)
+			//{
+			//	throw;
+			//}
 		}
 
 		/**
@@ -92,13 +85,16 @@ namespace XamarinARCore.Rendering
 		public static void checkGLError(string tag, string label)
 		{
 			int lastError = GLES20.GlNoError;
+
 			// Drain the queue of all errors.
 			int error;
+
 			while ((error = GLES20.GlGetError()) != GLES20.GlNoError)
 			{
 				Android.Util.Log.Error(tag, label + ": glError " + error);
 				lastError = error;
 			}
+
 			if (lastError != GLES20.GlNoError)
 			{
 				throw new RuntimeException(label + ": glError " + lastError);
@@ -113,44 +109,45 @@ namespace XamarinARCore.Rendering
         */
 		private static string readShaderFileFromAssets(Context context, string filename)
 		{
-			using (Stream inputStream = context.Assets.Open(filename))
-			{
-				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            try
+            {
+                using (var inputStream = context.Assets.Open(filename))
+                {
+                    using (var reader = new BufferedReader(new InputStreamReader(inputStream)))
+                    {
+                        var sb = new StringBuilder();
 
-				Java.Lang.StringBuilder sb = new Java.Lang.StringBuilder();
-				string line;
+                        var line = string.Empty;
 
-				int cont = 0;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            var tokens = line.Split(" ");
+                            if (tokens[0].Equals("#include"))
+                            {
+                                var includeFilename = tokens[1];
+                                includeFilename = includeFilename.Replace("\"", "");
 
-				while ((line = reader.ReadLine()) != null)
-				{
-					string[] tokens = line.Split(" ");
+                                if (includeFilename.Equals(filename))
+                                    throw new Java.IO.IOException("Do not include the calling file.");
 
-					if (tokens[0].Equals("#include"))
-					{
-						string includeFilename = tokens[1];
-						includeFilename = includeFilename.Replace("\"", "");
+                                sb.Append(readShaderFileFromAssets(context, includeFilename));
+                            }
+                            else
+                            {
+                                sb.Append(line).Append("\n");
+                            }
+                        }
+                        return sb.ToString();
+                    }
+                }
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Write(ex.Message);
+            }
 
-						if (includeFilename.Equals(filename))
-						{
-							throw new System.IO.IOException("Do not include the calling file.");
-						}
-
-						sb.Append(readShaderFileFromAssets(context, includeFilename));
-					}
-					else
-					{
-						sb.Append(line).Append("\n");
-					}
-
-					cont++;
-					System.Console.WriteLine("Contador: "+cont);
-
-				}
-
-				return sb.ToString();
-			}
-		}
+            return string.Empty;
+        }
 
 		private ShaderUtil() { }
 

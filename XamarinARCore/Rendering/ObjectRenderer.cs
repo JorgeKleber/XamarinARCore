@@ -158,14 +158,14 @@ namespace XamarinARCore.Rendering
 			FloatBuffer normals = ObjData.GetNormals(obj);
 
 			// Convert int indices to shorts for GL ES 2.0 compatibility
-			ShortBuffer indices =
-				ByteBuffer.AllocateDirect(2 * wideIndices.Limit())
-					.Order(ByteOrder.NativeOrder())
-					.AsShortBuffer();
+			ShortBuffer indices = ByteBuffer.AllocateDirect(2 * wideIndices.Limit())
+												.Order(ByteOrder.NativeOrder())
+												.AsShortBuffer();
 			while (wideIndices.HasRemaining)
 			{
 				indices.Put((short)wideIndices.Get());
 			}
+
 			indices.Rewind();
 
 			int[] buffers = new int[2];

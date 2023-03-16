@@ -65,7 +65,7 @@ namespace XamarinARCore.Rendering
 			return cameraTextureId;
 		}
 
-		public void createOnGlThread(Context context, int depthTextureId = -1)
+		public void createOnGlThread(Context context, int depthTextureId)
 		{
 			//Gerando a textura de fundo.
 			int[] textures = new int[1];
@@ -99,9 +99,39 @@ namespace XamarinARCore.Rendering
 			int vertexShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlVertexShader, CAMERA_VERTEX_SHADER_NAME);
 			int fragmentShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlFragmentShader, CAMERA_FRAGMENT_SHADER_NAME);
 
-		}
+            cameraProgram = GLES20.GlCreateProgram();
+            GLES20.GlAttachShader(cameraProgram, vertexShader);
+            GLES20.GlAttachShader(cameraProgram, fragmentShader);
+            GLES20.GlLinkProgram(cameraProgram);
+            GLES20.GlUseProgram(cameraProgram);
+            cameraPositionAttrib = GLES20.GlGetAttribLocation(cameraProgram, "a_Position");
+            cameraTexCoordAttrib = GLES20.GlGetAttribLocation(cameraProgram, "a_TexCoord");
+            ShaderUtil.checkGLError("", "Program creation");
 
-		/**
+            cameraTextureUniform = GLES20.GlGetUniformLocation(cameraProgram, "sTexture");
+            ShaderUtil.checkGLError("", "Program parameters");
+
+            // Load render depth map shader.
+            vertexShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlVertexShader, DEPTH_VISUALIZER_VERTEX_SHADER_NAME);
+            fragmentShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlFragmentShader, DEPTH_VISUALIZER_FRAGMENT_SHADER_NAME);
+
+            depthProgram = GLES20.GlCreateProgram();
+            GLES20.GlAttachShader(depthProgram, vertexShader);
+            GLES20.GlAttachShader(depthProgram, fragmentShader);
+            GLES20.GlLinkProgram(depthProgram);
+            GLES20.GlUseProgram(depthProgram);
+            depthPositionAttrib = GLES20.GlGetAttribLocation(depthProgram, "a_Position");
+            depthTexCoordAttrib = GLES20.GlGetAttribLocation(depthProgram, "a_TexCoord");
+            ShaderUtil.checkGLError("", "Program creation");
+
+            depthTextureUniform = GLES20.GlGetUniformLocation(depthProgram, "u_DepthTexture");
+            ShaderUtil.checkGLError("", "Program parameters");
+
+            this.depthTextureId = depthTextureId;
+
+        }
+
+        /**
 		* Draws the AR background image. The image will be drawn such that virtual content rendered with
 		* the matrices provided by {@link com.google.ar.core.Camera#getViewMatrix(float[], int)} and
 		* {@link com.google.ar.core.Camera#getProjectionMatrix(float[], int, float, float)} will
@@ -111,7 +141,7 @@ namespace XamarinARCore.Rendering
 		* @param frame The current {@code Frame} as returned by {@link Session#update()}.
 		* @param debugShowDepthMap Toggles whether to show the live camera feed or latest depth image.
 		*/
-		public void draw(Frame frame, bool debugShowDepthMap)
+        public void draw(Frame frame, bool debugShowDepthMap)
 		{
 			// If display rotation changed (also includes view size change), we need to re-query the uv
 			// coordinates for the screen rect, as they may have changed as well.
