@@ -5,18 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextureView
-    android:id="@+id/cameraView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
-
-
-    <TextView
-        android:id="@+id/tv_status_ar"
-        android:text="Olá Jorge eu sou o ARCore xamarin nativo!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/darker_gray"
-        android:layout_centerInParent="true"/>
+     <android.opengl.GLSurfaceView
+        android:id="@+id/surfaceview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="top" />
 
 </RelativeLayout>
