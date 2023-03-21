@@ -96,8 +96,8 @@ namespace XamarinARCore.Rendering
 			quadTexCoords = bbTextCoordsTransformed.AsFloatBuffer();
 
 			// Load render camera feed shader.
-			int vertexShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlVertexShader, CAMERA_VERTEX_SHADER_NAME);
-			int fragmentShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlFragmentShader, CAMERA_FRAGMENT_SHADER_NAME);
+			int vertexShader = ShaderUtil.LoadGLShader( context, GLES20.GlVertexShader, CAMERA_VERTEX_SHADER_NAME);
+			int fragmentShader = ShaderUtil.LoadGLShader(context, GLES20.GlFragmentShader, CAMERA_FRAGMENT_SHADER_NAME);
 
             cameraProgram = GLES20.GlCreateProgram();
             GLES20.GlAttachShader(cameraProgram, vertexShader);
@@ -106,14 +106,14 @@ namespace XamarinARCore.Rendering
             GLES20.GlUseProgram(cameraProgram);
             cameraPositionAttrib = GLES20.GlGetAttribLocation(cameraProgram, "a_Position");
             cameraTexCoordAttrib = GLES20.GlGetAttribLocation(cameraProgram, "a_TexCoord");
-            ShaderUtil.checkGLError("", "Program creation");
+            ShaderUtil.CheckGLError(TAG, "Program creation");
 
             cameraTextureUniform = GLES20.GlGetUniformLocation(cameraProgram, "sTexture");
-            ShaderUtil.checkGLError("", "Program parameters");
+            ShaderUtil.CheckGLError(TAG, "Program parameters");
 
             // Load render depth map shader.
-            vertexShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlVertexShader, DEPTH_VISUALIZER_VERTEX_SHADER_NAME);
-            fragmentShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlFragmentShader, DEPTH_VISUALIZER_FRAGMENT_SHADER_NAME);
+            vertexShader = ShaderUtil.LoadGLShader( context, GLES20.GlVertexShader, DEPTH_VISUALIZER_VERTEX_SHADER_NAME);
+            fragmentShader = ShaderUtil.LoadGLShader( context, GLES20.GlFragmentShader, DEPTH_VISUALIZER_FRAGMENT_SHADER_NAME);
 
             depthProgram = GLES20.GlCreateProgram();
             GLES20.GlAttachShader(depthProgram, vertexShader);
@@ -122,10 +122,10 @@ namespace XamarinARCore.Rendering
             GLES20.GlUseProgram(depthProgram);
             depthPositionAttrib = GLES20.GlGetAttribLocation(depthProgram, "a_Position");
             depthTexCoordAttrib = GLES20.GlGetAttribLocation(depthProgram, "a_TexCoord");
-            ShaderUtil.checkGLError("", "Program creation");
+            ShaderUtil.CheckGLError(TAG, "Program creation");
 
             depthTextureUniform = GLES20.GlGetUniformLocation(depthProgram, "u_DepthTexture");
-            ShaderUtil.checkGLError("", "Program parameters");
+            ShaderUtil.CheckGLError(TAG, "Program parameters");
 
             this.depthTextureId = depthTextureId;
 
@@ -282,7 +282,7 @@ namespace XamarinARCore.Rendering
 			GLES20.GlDepthMask(true);
 			GLES20.GlEnable(GLES20.GlDepthTest);
 
-			ShaderUtil.checkGLError(TAG, "BackgroundRendererDraw");
+			ShaderUtil.CheckGLError(TAG, "BackgroundRendererDraw");
 		}
 	}
 }	

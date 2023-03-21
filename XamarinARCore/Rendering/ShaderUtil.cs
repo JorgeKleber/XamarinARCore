@@ -1,4 +1,5 @@
-﻿using Android.Content;
+﻿using Android.App;
+using Android.Content;
 using Android.Opengl;
 using Java.IO;
 using Java.Lang;
@@ -13,102 +14,94 @@ namespace XamarinARCore.Rendering
     /// Shader helper functions.
     /// </summary>
     public class ShaderUtil
-	{
-		/// <summary>
-		/// Metodo que irá carregar o Shader
-		/// </summary>
-		/// <param name="context">Contexto</param>
-		/// <param name="type">Tipo do shader que será criado</param>
-		/// <param name="filename">O nome do asset que virá a ser um shader</param>
-		/// <param name="defineValuesMap">Define os valores que serão adicionados no topo do shader source code.</param>
-		/// <returns></returns>
-		public static int loadGLShader(string tag, Context context, int type, string filename, Dictionary<string, int> defineValuesMap)
-		{
-			//Load shader source code.
-			string code = readShaderFileFromAssets(context, filename);
+    {
+        private static string TAG = typeof(ShaderUtil).Name;
 
-			//Prepend any #define values specified during this run.
-			string defines = "";
+        /**
+         * Converts a raw text file, saved as a resource, into an OpenGL ES shader.
+         *
+         * @param type The type of shader we will be creating.
+         * @param filename The filename of the asset file about to be turned into a shader.
+         * @param defineValuesMap The #define values to add to the top of the shader source code.
+         * @return The shader object handler.
+         */
+        public static int LoadGLShader(Context context, int type, string filename, Dictionary<string, int> defineValuesMap)
+        {
+            // Load shader source code.
+            var code = ReadShaderFileFromAssets(context, filename);
 
-			foreach (var item in defineValuesMap)
-			{
-				defines += "#defines " + item.Key + " " + item.Value + "\n";
-			}
+            // Prepend any #define values specified during this run.
+            var defines = "";
+            foreach (var entry in defineValuesMap)
+            {
+                defines += "#define " + entry.Key + " " + entry.Value + "\n";
+            }
 
-			code = defines + code;
+            code = defines + code;
 
-			//Compiles shader code.
-			int shader = GLES20.GlCreateShader(type);
-			GLES20.GlShaderSource(shader, code);
-			GLES20.GlCompileShader(shader);
+            // Compiles shader code.
+            int shader = GLES20.GlCreateShader(type);
+            GLES20.GlShaderSource(shader, code);
+            GLES20.GlCompileShader(shader);
 
-			//Get the compilation status.
-			int[] compileStatus = new int[1];
-			GLES20.GlGetShaderiv(shader, GLES20.GlCompileStatus, compileStatus, 0);
+            // Get the compilation status.
+            var compileStatus = new int[1];
+            GLES20.GlGetShaderiv(shader, GLES20.GlCompileStatus, compileStatus, 0);
 
-			//If the compilation failed, delete the shader.
-			if (compileStatus[0] == 0)
-			{
-				Android.Util.Log.Error(tag, "Error compiling shader: " + GLES20.GlGetShaderInfoLog(shader));
-				GLES20.GlDeleteShader(shader);
-				shader = 0;
-			}
+            // If the compilation failed, delete the shader.
+            if (compileStatus[0] == 0)
+            {
+                Debug.Write("Error compiling shader: " + GLES20.GlGetShaderInfoLog(shader));
+                GLES20.GlDeleteShader(shader);
+                shader = 0;
+            }
 
-			if (shader == 0)
-			{
-				throw new RuntimeException("Error creating shader.");
-			}
+            if (shader == 0)
+                throw new RuntimeException("Error creating shader.");
 
-			return shader;
-		}
+            return shader;
+        }
 
-		/** Overload of loadGLShader that assumes no additional #define values to add. */
-		public static int loadGLShader(string tag, Context context, int type, string filename)
-		{
-			//try
-			//{
-                var emptyDefineValuesMap = new Dictionary<string, int>();
-                return loadGLShader(tag, context, type, filename, emptyDefineValuesMap);
-			//}
-			//catch (System.Exception e)
-			//{
-			//	throw;
-			//}
-		}
+        /** Overload of loadGLShader that assumes no additional #define values to add. */
+        public static int LoadGLShader(Context context, int type, string filename)
+        {
+            var emptyDefineValuesMap = new Dictionary<string, int>();
+            return LoadGLShader(context, type, filename, emptyDefineValuesMap);
+        }
 
-		/**
-		* Checks if we've had an error inside of OpenGL ES, and if so what that error is.
-		*
-		* @param label Label to report in case of error.
-		* @throws RuntimeException If an OpenGL error is detected.
-		**/
-		public static void checkGLError(string tag, string label)
-		{
-			int lastError = GLES20.GlNoError;
+        /**
+         * Checks if we've had an error inside of OpenGL ES, and if so what that error is.
+         *
+         * @param label Label to report in case of error.
+         * @throws RuntimeException If an OpenGL error is detected.
+         */
+        public static void CheckGLError(string tag, string label)
+        {
+            var lastError = GLES20.GlNoError;
 
-			// Drain the queue of all errors.
-			int error;
+            // Drain the queue of all errors.
+            int error;
 
-			while ((error = GLES20.GlGetError()) != GLES20.GlNoError)
-			{
-				Android.Util.Log.Error(tag, label + ": glError " + error);
-				lastError = error;
-			}
+            while ((error = GLES20.GlGetError()) != GLES20.GlNoError)
+            {
+                Debug.Write(label + ": glError " + error);
+                lastError = error;
+            }
 
-			if (lastError != GLES20.GlNoError)
-			{
-				throw new RuntimeException(label + ": glError " + lastError);
-			}
-		}
+            if (lastError != GLES20.GlNoError)
+            {
+                throw new RuntimeException(label + ": glError " + lastError);
+            }
+        }
 
-		/**
-        * Converts a raw shader file into a string.
-        *
-        * @param filename The filename of the shader file about to be turned into a shader.
-        * @return The context of the text file, or null in case of error.
-        */
-		private static string readShaderFileFromAssets(Context context, string filename)
-		{
+        /**
+         * Converts a raw shader file into a string.
+         *
+         * @param filename The filename of the shader file about to be turned into a shader.
+         * @return The context of the text file, or null in case of error.
+         */
+        private static string ReadShaderFileFromAssets(Context context, string filename)
+        {
             try
             {
                 using (var inputStream = context.Assets.Open(filename))
@@ -116,9 +109,7 @@ namespace XamarinARCore.Rendering
                     using (var reader = new BufferedReader(new InputStreamReader(inputStream)))
                     {
                         var sb = new StringBuilder();
-
                         var line = string.Empty;
-
                         while ((line = reader.ReadLine()) != null)
                         {
                             var tokens = line.Split(" ");
@@ -128,9 +119,9 @@ namespace XamarinARCore.Rendering
                                 includeFilename = includeFilename.Replace("\"", "");
 
                                 if (includeFilename.Equals(filename))
-                                    throw new Java.IO.IOException("Do not include the calling file.");
+                                    throw new System.IO.IOException("Do not include the calling file.");
 
-                                sb.Append(readShaderFileFromAssets(context, includeFilename));
+                                sb.Append(ReadShaderFileFromAssets(context, includeFilename));
                             }
                             else
                             {
@@ -148,8 +139,5 @@ namespace XamarinARCore.Rendering
 
             return string.Empty;
         }
-
-		private ShaderUtil() { }
-
-	}
+    }
 }

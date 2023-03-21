@@ -56,8 +56,8 @@ namespace XamarinARCore.Rendering
 
 		public void createOnGlThread(Context context, String diffuseTextureAssetName)
 		{
-			int vertexShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlVertexShader, VERTEX_SHADER_NAME);
-			int fragmentShader = ShaderUtil.loadGLShader(TAG, context, GLES20.GlFragmentShader, FRAGMENT_SHADER_NAME);
+			int vertexShader = ShaderUtil.LoadGLShader(context, GLES20.GlVertexShader, VERTEX_SHADER_NAME);
+			int fragmentShader = ShaderUtil.LoadGLShader(context, GLES20.GlFragmentShader, FRAGMENT_SHADER_NAME);
 
 			program = GLES20.GlCreateProgram();
 			GLES20.GlAttachShader(program, vertexShader);
