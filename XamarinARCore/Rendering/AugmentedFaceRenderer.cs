@@ -1,21 +1,13 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.Graphics;
 using Android.Opengl;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Google.AR.Core;
 using Java.Nio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace XamarinARCore.Rendering
 {
-	public class AugmentedFaceRenderer
+    public class AugmentedFaceRenderer
 	{
 		private static string TAG = typeof(AugmentedFaceRenderer).Name;
 

@@ -17,7 +17,7 @@ namespace XamarinARCore.Rendering
 {
 	public class BackgroundRenderer
 	{
-		private static string TAG = typeof(MainActivity).Name;
+		private static string TAG = typeof(BackgroundRenderer).Name;
 
 		//Nome dos shaderes
 		private static string CAMERA_VERTEX_SHADER_NAME = "shaders/screenquad.vert";

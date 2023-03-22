@@ -1,20 +1,18 @@
-﻿using Android;
-using Android.App;
+﻿using Android.App;
 using Android.Opengl;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using AndroidX.AppCompat.App;
-using Google.Android.Material.Snackbar;
-using Google.AR.Core;
-using Google.AR.Core.Exceptions;
 using Javax.Microedition.Khronos.Opengles;
-using System;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using XamarinARCore.Helpers;
-using XamarinARCore.Rendering;
+using XamarinARCore.ARLibrary;
+using XamarinARCore.ARLibrary.Helpers;
+using XamarinARCore.ARLibrary.Rendering;
+using Google.AR.Core;
+using Google.AR.Core.Exceptions;
+using Android.Util;
 using static Google.AR.Core.AugmentedFace;
+using System;
 using Config = Google.AR.Core.Config;
 
 namespace XamarinARCore
@@ -35,12 +33,7 @@ namespace XamarinARCore
         /// </summary>
         private GLSurfaceView surfaceView;
 
-        private bool userRequestedInstall = true;
-        //responsável por iniciar a sessão.
         private Session session;
-        //private SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
-        private DisplayRotationHelper displayRotationHelper;
-        private TrackingStateHelper trackingStateHelper = new TrackingStateHelper(Android.App.Application.Context as Activity);
 
         //Instanciando os renderizadores.
         private readonly BackgroundRenderer backgroundRenderer = new BackgroundRenderer();
@@ -49,12 +42,17 @@ namespace XamarinARCore
         private readonly ObjectRenderer rightEarObject = new ObjectRenderer();
         private readonly ObjectRenderer leftEarObject = new ObjectRenderer();
 
-
         //Temporary matrix allocated here to reduce number of allocations for each frame.
         private readonly float[] noseMatrix = new float[16];
         private readonly float[] rightEarMatrix = new float[16];
         private readonly float[] leftEarMatrix = new float[16];
         private static readonly float[] DEFAULT_COLOR = new float[] { 0f, 0f, 0f, 0f };
+
+        private bool userRequestedInstall = true;
+        //private SnackbarHelper messageSnackbarHelper = new SnackbarHelper();
+        private DisplayRotationHelper displayRotationHelper;
+        private TrackingStateHelper trackingStateHelper = new TrackingStateHelper(Android.App.Application.Context as Activity);
+
 
         #endregion
 
@@ -88,11 +86,6 @@ namespace XamarinARCore
 
         private async Task OnResumeAsync()
         {
-            var arAvailability = ArCoreApk.Instance.CheckAvailability(this);
-
-            if (arAvailability.IsUnsupported) //TODO: Create a unsuported view renderer
-                return;
-
             // ARCore requires camera permission to operate.
             var permissionResult = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
@@ -103,6 +96,11 @@ namespace XamarinARCore
                 if (permissionResult != PermissionStatus.Granted)
                     return;
             }
+
+            var arAvailability = ArCoreApk.Instance.CheckAvailability(this);
+
+            if (arAvailability.IsUnsupported) //TODO: Create a unsuported view renderer
+                return;
 
             try
             {
@@ -147,8 +145,7 @@ namespace XamarinARCore
             }
 
             session.Resume();
-            //if (View is GLSurfaceView surfaceView)
-            //    surfaceView.OnResume();
+            
             surfaceView.OnResume();
 
             displayRotationHelper.onResume();
@@ -163,8 +160,6 @@ namespace XamarinARCore
 
             session.Pause();
 
-            //if (View is GLSurfaceView surfaceView)
-            //    surfaceView.OnPause();
             surfaceView.OnPause();
 
             displayRotationHelper.onPause();
@@ -183,17 +178,6 @@ namespace XamarinARCore
 
         #endregion
 
-        #region HELPERS
-
-        //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        //{
-        //    Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        //}
-
-        #endregion
-
         #region SURFACEVUEW RENDERER
 
         public void OnDrawFrame(IGL10 gl)
@@ -209,77 +193,60 @@ namespace XamarinARCore
             // Notify ARCore session that the view size changed so that the perspective matrix and
             // the video background can be properly adjusted.
             displayRotationHelper.updateSessionIfNeeded(session);
-
             try
             {
                 session.SetCameraTextureName(backgroundRenderer.getTextureId());
-
                 // Obtain the current frame from ARSession. When the configuration is set to
                 // UpdateMode.BLOCKING (it is by default), this will throttle the rendering to the
                 // camera framerate.
                 Frame frame = session.Update();
                 Camera camera = frame.Camera;
-
                 // Get projection matrix.
                 float[] projectionMatrix = new float[16];
                 camera.GetProjectionMatrix(projectionMatrix, 0, 0.1f, 100.0f);
-
                 // Get camera matrix and draw.
                 float[] viewMatrix = new float[16];
                 camera.GetViewMatrix(viewMatrix, 0);
-
                 // Compute lighting from average intensity of the image.
                 // The first three components are color scaling factors.
                 // The last one is the average pixel intensity in gamma space.
                 float[] colorCorrectionRgba = new float[4];
                 frame.LightEstimate.GetColorCorrection(colorCorrectionRgba, 0);
-
                 // If frame is ready, render camera preview image to the GL surface.
                 backgroundRenderer.draw(frame);
-
                 // Keep the screen unlocked while tracking, but allow it to lock when tracking stops.
                 trackingStateHelper.updateKeepScreenOnFlag(camera.TrackingState);
-
                 // ARCore's face detection works best on upright faces, relative to gravity.
                 // If the device cannot determine a screen side aligned with gravity, face
                 // detection may not work optimally.
                 var faces = session.GetAllTrackables(Java.Lang.Class.FromType(typeof(AugmentedFace)));
-
                 foreach (AugmentedFace face in faces)
                 {
                     if (face.TrackingState != TrackingState.Tracking)
                     {
                         break;
                     }
-
                     float scaleFactor = 1.0f;
-
                     // Face objects use transparency so they must be rendered back to front without depth write.
                     GLES20.GlDepthMask(false);
-
                     // Each face's region poses, mesh vertices, and mesh normals are updated every frame.
-
                     // 1. Render the face mesh first, behind any 3D objects attached to the face regions.
                     float[] modelMatrix = new float[16];
                     face.CenterPose.ToMatrix(modelMatrix, 0);
                     augmentedFaceRenderer.draw(projectionMatrix, viewMatrix, modelMatrix, colorCorrectionRgba, face);
-
                     // 2. Next, render the 3D objects attached to the forehead.
                     face.GetRegionPose(RegionType.ForeheadRight).ToMatrix(rightEarMatrix, 0);
                     rightEarObject.UpdateModelMatrix(rightEarMatrix, scaleFactor);
                     rightEarObject.Draw(viewMatrix, projectionMatrix, colorCorrectionRgba, DEFAULT_COLOR);
-
                     face.GetRegionPose(RegionType.ForeheadLeft).ToMatrix(leftEarMatrix, 0);
                     leftEarObject.UpdateModelMatrix(leftEarMatrix, scaleFactor);
                     leftEarObject.Draw(viewMatrix, projectionMatrix, colorCorrectionRgba, DEFAULT_COLOR);
-
                     // 3. Render the nose last so that it is not occluded by face mesh or by 3D objects attached
                     // to the forehead regions.
                     face.GetRegionPose(RegionType.NoseTip).ToMatrix(noseMatrix, 0);
                     noseObject.UpdateModelMatrix(noseMatrix, scaleFactor);
                     noseObject.Draw(viewMatrix, projectionMatrix, colorCorrectionRgba, DEFAULT_COLOR);
                 }
-
             }
             catch (Exception t)
             {
@@ -300,6 +267,7 @@ namespace XamarinARCore
 
         public void OnSurfaceCreated(IGL10 gl, Javax.Microedition.Khronos.Egl.EGLConfig config)
         {
+            #region oldCode
             GLES20.GlClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
             // Prepare the rendering objects. This involves reading shaders, so may throw an IOException.
@@ -319,10 +287,12 @@ namespace XamarinARCore
             {
                 Android.Util.Log.Error(TAG, "Failed to read an asset file", e);
             }
+            #endregion
         }
 
         private void TryCreateTexture(ObjectRenderer renderer, string objectName, string assetTexture)
         {
+
             try
             {
                 renderer.CreateOnGlThread(this, objectName, assetTexture);
