@@ -335,6 +335,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Attribute.contentInsetStart = global::XamarinARCore.Resource.Attribute.contentInsetStart;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.contentInsetStartWithNavigation = global::XamarinARCore.Resource.Attribute.contentInsetStartWithNavigation;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.controlBackground = global::XamarinARCore.Resource.Attribute.controlBackground;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.coordinatorLayoutStyle = global::XamarinARCore.Resource.Attribute.coordinatorLayoutStyle;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.customNavigationLayout = global::XamarinARCore.Resource.Attribute.customNavigationLayout;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.defaultQueryHint = global::XamarinARCore.Resource.Attribute.defaultQueryHint;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.dialogCornerRadius = global::XamarinARCore.Resource.Attribute.dialogCornerRadius;
@@ -390,8 +391,15 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Attribute.initialActivityCount = global::XamarinARCore.Resource.Attribute.initialActivityCount;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.isLightTheme = global::XamarinARCore.Resource.Attribute.isLightTheme;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.itemPadding = global::XamarinARCore.Resource.Attribute.itemPadding;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.keylines = global::XamarinARCore.Resource.Attribute.keylines;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.lastBaselineToBottomHeight = global::XamarinARCore.Resource.Attribute.lastBaselineToBottomHeight;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.layout = global::XamarinARCore.Resource.Attribute.layout;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_anchor = global::XamarinARCore.Resource.Attribute.layout_anchor;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_anchorGravity = global::XamarinARCore.Resource.Attribute.layout_anchorGravity;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_behavior = global::XamarinARCore.Resource.Attribute.layout_behavior;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_dodgeInsetEdges = global::XamarinARCore.Resource.Attribute.layout_dodgeInsetEdges;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_insetEdge = global::XamarinARCore.Resource.Attribute.layout_insetEdge;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.layout_keyline = global::XamarinARCore.Resource.Attribute.layout_keyline;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.lineHeight = global::XamarinARCore.Resource.Attribute.lineHeight;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.listChoiceBackgroundIndicator = global::XamarinARCore.Resource.Attribute.listChoiceBackgroundIndicator;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.listChoiceIndicatorMultipleAnimated = global::XamarinARCore.Resource.Attribute.listChoiceIndicatorMultipleAnimated;
@@ -455,6 +463,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Attribute.splitTrack = global::XamarinARCore.Resource.Attribute.splitTrack;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.srcCompat = global::XamarinARCore.Resource.Attribute.srcCompat;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.state_above_anchor = global::XamarinARCore.Resource.Attribute.state_above_anchor;
+			global::XamarinARCore.ARLibrary.Resource.Attribute.statusBarBackground = global::XamarinARCore.Resource.Attribute.statusBarBackground;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.subMenuArrow = global::XamarinARCore.Resource.Attribute.subMenuArrow;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.submitBackground = global::XamarinARCore.Resource.Attribute.submitBackground;
 			global::XamarinARCore.ARLibrary.Resource.Attribute.subtitle = global::XamarinARCore.Resource.Attribute.subtitle;
@@ -820,6 +829,8 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Drawable.notification_template_icon_low_bg = global::XamarinARCore.Resource.Drawable.notification_template_icon_low_bg;
 			global::XamarinARCore.ARLibrary.Resource.Drawable.notification_tile_bg = global::XamarinARCore.Resource.Drawable.notification_tile_bg;
 			global::XamarinARCore.ARLibrary.Resource.Drawable.notify_panel_notification_icon_bg = global::XamarinARCore.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::XamarinARCore.ARLibrary.Resource.Drawable.sceneform_hand_phone = global::XamarinARCore.Resource.Drawable.sceneform_hand_phone;
+			global::XamarinARCore.ARLibrary.Resource.Drawable.sceneform_plane = global::XamarinARCore.Resource.Drawable.sceneform_plane;
 			global::XamarinARCore.ARLibrary.Resource.Drawable.tooltip_frame_dark = global::XamarinARCore.Resource.Drawable.tooltip_frame_dark;
 			global::XamarinARCore.ARLibrary.Resource.Drawable.tooltip_frame_light = global::XamarinARCore.Resource.Drawable.tooltip_frame_light;
 			global::XamarinARCore.ARLibrary.Resource.Id.accessibility_action_clickable_span = global::XamarinARCore.Resource.Id.accessibility_action_clickable_span;
@@ -876,6 +887,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.activity_chooser_view_content = global::XamarinARCore.Resource.Id.activity_chooser_view_content;
 			global::XamarinARCore.ARLibrary.Resource.Id.add = global::XamarinARCore.Resource.Id.add;
 			global::XamarinARCore.ARLibrary.Resource.Id.alertTitle = global::XamarinARCore.Resource.Id.alertTitle;
+			global::XamarinARCore.ARLibrary.Resource.Id.all = global::XamarinARCore.Resource.Id.all;
 			global::XamarinARCore.ARLibrary.Resource.Id.ALT = global::XamarinARCore.Resource.Id.ALT;
 			global::XamarinARCore.ARLibrary.Resource.Id.always = global::XamarinARCore.Resource.Id.always;
 			global::XamarinARCore.ARLibrary.Resource.Id.async = global::XamarinARCore.Resource.Id.async;
@@ -883,10 +895,14 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.blocking = global::XamarinARCore.Resource.Id.blocking;
 			global::XamarinARCore.ARLibrary.Resource.Id.bottom = global::XamarinARCore.Resource.Id.bottom;
 			global::XamarinARCore.ARLibrary.Resource.Id.buttonPanel = global::XamarinARCore.Resource.Id.buttonPanel;
+			global::XamarinARCore.ARLibrary.Resource.Id.center = global::XamarinARCore.Resource.Id.center;
+			global::XamarinARCore.ARLibrary.Resource.Id.center_horizontal = global::XamarinARCore.Resource.Id.center_horizontal;
 			global::XamarinARCore.ARLibrary.Resource.Id.center_vertical = global::XamarinARCore.Resource.Id.center_vertical;
 			global::XamarinARCore.ARLibrary.Resource.Id.checkbox = global::XamarinARCore.Resource.Id.checkbox;
 			global::XamarinARCore.ARLibrary.Resource.Id.@checked = global::XamarinARCore.Resource.Id.@checked;
 			global::XamarinARCore.ARLibrary.Resource.Id.chronometer = global::XamarinARCore.Resource.Id.chronometer;
+			global::XamarinARCore.ARLibrary.Resource.Id.clip_horizontal = global::XamarinARCore.Resource.Id.clip_horizontal;
+			global::XamarinARCore.ARLibrary.Resource.Id.clip_vertical = global::XamarinARCore.Resource.Id.clip_vertical;
 			global::XamarinARCore.ARLibrary.Resource.Id.collapseActionView = global::XamarinARCore.Resource.Id.collapseActionView;
 			global::XamarinARCore.ARLibrary.Resource.Id.content = global::XamarinARCore.Resource.Id.content;
 			global::XamarinARCore.ARLibrary.Resource.Id.contentPanel = global::XamarinARCore.Resource.Id.contentPanel;
@@ -901,6 +917,9 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.end = global::XamarinARCore.Resource.Id.end;
 			global::XamarinARCore.ARLibrary.Resource.Id.expanded_menu = global::XamarinARCore.Resource.Id.expanded_menu;
 			global::XamarinARCore.ARLibrary.Resource.Id.expand_activities_button = global::XamarinARCore.Resource.Id.expand_activities_button;
+			global::XamarinARCore.ARLibrary.Resource.Id.fill = global::XamarinARCore.Resource.Id.fill;
+			global::XamarinARCore.ARLibrary.Resource.Id.fill_horizontal = global::XamarinARCore.Resource.Id.fill_horizontal;
+			global::XamarinARCore.ARLibrary.Resource.Id.fill_vertical = global::XamarinARCore.Resource.Id.fill_vertical;
 			global::XamarinARCore.ARLibrary.Resource.Id.forever = global::XamarinARCore.Resource.Id.forever;
 			global::XamarinARCore.ARLibrary.Resource.Id.fragment_container_view_tag = global::XamarinARCore.Resource.Id.fragment_container_view_tag;
 			global::XamarinARCore.ARLibrary.Resource.Id.FUNCTION = global::XamarinARCore.Resource.Id.FUNCTION;
@@ -913,6 +932,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.image = global::XamarinARCore.Resource.Id.image;
 			global::XamarinARCore.ARLibrary.Resource.Id.info = global::XamarinARCore.Resource.Id.info;
 			global::XamarinARCore.ARLibrary.Resource.Id.italic = global::XamarinARCore.Resource.Id.italic;
+			global::XamarinARCore.ARLibrary.Resource.Id.left = global::XamarinARCore.Resource.Id.left;
 			global::XamarinARCore.ARLibrary.Resource.Id.line1 = global::XamarinARCore.Resource.Id.line1;
 			global::XamarinARCore.ARLibrary.Resource.Id.line3 = global::XamarinARCore.Resource.Id.line3;
 			global::XamarinARCore.ARLibrary.Resource.Id.listMode = global::XamarinARCore.Resource.Id.listMode;
@@ -933,8 +953,12 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.progress_circular = global::XamarinARCore.Resource.Id.progress_circular;
 			global::XamarinARCore.ARLibrary.Resource.Id.progress_horizontal = global::XamarinARCore.Resource.Id.progress_horizontal;
 			global::XamarinARCore.ARLibrary.Resource.Id.radio = global::XamarinARCore.Resource.Id.radio;
+			global::XamarinARCore.ARLibrary.Resource.Id.right = global::XamarinARCore.Resource.Id.right;
 			global::XamarinARCore.ARLibrary.Resource.Id.right_icon = global::XamarinARCore.Resource.Id.right_icon;
 			global::XamarinARCore.ARLibrary.Resource.Id.right_side = global::XamarinARCore.Resource.Id.right_side;
+			global::XamarinARCore.ARLibrary.Resource.Id.sceneform_ar_scene_view = global::XamarinARCore.Resource.Id.sceneform_ar_scene_view;
+			global::XamarinARCore.ARLibrary.Resource.Id.sceneform_hand_image = global::XamarinARCore.Resource.Id.sceneform_hand_image;
+			global::XamarinARCore.ARLibrary.Resource.Id.sceneform_hand_layout = global::XamarinARCore.Resource.Id.sceneform_hand_layout;
 			global::XamarinARCore.ARLibrary.Resource.Id.screen = global::XamarinARCore.Resource.Id.screen;
 			global::XamarinARCore.ARLibrary.Resource.Id.scrollIndicatorDown = global::XamarinARCore.Resource.Id.scrollIndicatorDown;
 			global::XamarinARCore.ARLibrary.Resource.Id.scrollIndicatorUp = global::XamarinARCore.Resource.Id.scrollIndicatorUp;
@@ -960,6 +984,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Id.src_atop = global::XamarinARCore.Resource.Id.src_atop;
 			global::XamarinARCore.ARLibrary.Resource.Id.src_in = global::XamarinARCore.Resource.Id.src_in;
 			global::XamarinARCore.ARLibrary.Resource.Id.src_over = global::XamarinARCore.Resource.Id.src_over;
+			global::XamarinARCore.ARLibrary.Resource.Id.start = global::XamarinARCore.Resource.Id.start;
 			global::XamarinARCore.ARLibrary.Resource.Id.submenuarrow = global::XamarinARCore.Resource.Id.submenuarrow;
 			global::XamarinARCore.ARLibrary.Resource.Id.submit_area = global::XamarinARCore.Resource.Id.submit_area;
 			global::XamarinARCore.ARLibrary.Resource.Id.SYM = global::XamarinARCore.Resource.Id.SYM;
@@ -1040,12 +1065,26 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Layout.notification_template_icon_group = global::XamarinARCore.Resource.Layout.notification_template_icon_group;
 			global::XamarinARCore.ARLibrary.Resource.Layout.notification_template_part_chronometer = global::XamarinARCore.Resource.Layout.notification_template_part_chronometer;
 			global::XamarinARCore.ARLibrary.Resource.Layout.notification_template_part_time = global::XamarinARCore.Resource.Layout.notification_template_part_time;
+			global::XamarinARCore.ARLibrary.Resource.Layout.sceneform_plane_discovery_layout = global::XamarinARCore.Resource.Layout.sceneform_plane_discovery_layout;
+			global::XamarinARCore.ARLibrary.Resource.Layout.sceneform_ux_fragment_layout = global::XamarinARCore.Resource.Layout.sceneform_ux_fragment_layout;
 			global::XamarinARCore.ARLibrary.Resource.Layout.select_dialog_item_material = global::XamarinARCore.Resource.Layout.select_dialog_item_material;
 			global::XamarinARCore.ARLibrary.Resource.Layout.select_dialog_multichoice_material = global::XamarinARCore.Resource.Layout.select_dialog_multichoice_material;
 			global::XamarinARCore.ARLibrary.Resource.Layout.select_dialog_singlechoice_material = global::XamarinARCore.Resource.Layout.select_dialog_singlechoice_material;
 			global::XamarinARCore.ARLibrary.Resource.Layout.support_simple_spinner_dropdown_item = global::XamarinARCore.Resource.Layout.support_simple_spinner_dropdown_item;
 			global::XamarinARCore.ARLibrary.Resource.Layout.@__arcore_education = global::XamarinARCore.Resource.Layout.@__arcore_education;
 			global::XamarinARCore.ARLibrary.Resource.Raw.keep_arcore = global::XamarinARCore.Resource.Raw.keep_arcore;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_camera_material = global::XamarinARCore.Resource.Raw.sceneform_camera_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_default_light_probe = global::XamarinARCore.Resource.Raw.sceneform_default_light_probe;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_face_mesh = global::XamarinARCore.Resource.Raw.sceneform_face_mesh;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_face_mesh_occluder = global::XamarinARCore.Resource.Raw.sceneform_face_mesh_occluder;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_footprint = global::XamarinARCore.Resource.Raw.sceneform_footprint;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_opaque_colored_material = global::XamarinARCore.Resource.Raw.sceneform_opaque_colored_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_opaque_textured_material = global::XamarinARCore.Resource.Raw.sceneform_opaque_textured_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_plane_material = global::XamarinARCore.Resource.Raw.sceneform_plane_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_plane_shadow_material = global::XamarinARCore.Resource.Raw.sceneform_plane_shadow_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_transparent_colored_material = global::XamarinARCore.Resource.Raw.sceneform_transparent_colored_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_transparent_textured_material = global::XamarinARCore.Resource.Raw.sceneform_transparent_textured_material;
+			global::XamarinARCore.ARLibrary.Resource.Raw.sceneform_view_renderable = global::XamarinARCore.Resource.Raw.sceneform_view_renderable;
 			global::XamarinARCore.ARLibrary.Resource.String.abc_action_bar_home_description = global::XamarinARCore.Resource.String.abc_action_bar_home_description;
 			global::XamarinARCore.ARLibrary.Resource.String.abc_action_bar_up_description = global::XamarinARCore.Resource.String.abc_action_bar_up_description;
 			global::XamarinARCore.ARLibrary.Resource.String.abc_action_menu_overflow_description = global::XamarinARCore.Resource.String.abc_action_menu_overflow_description;
@@ -1075,6 +1114,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.String.abc_toolbar_collapse_description = global::XamarinARCore.Resource.String.abc_toolbar_collapse_description;
 			global::XamarinARCore.ARLibrary.Resource.String.app_name = global::XamarinARCore.Resource.String.app_name;
 			global::XamarinARCore.ARLibrary.Resource.String.hello = global::XamarinARCore.Resource.String.hello;
+			global::XamarinARCore.ARLibrary.Resource.String.lib_name = global::XamarinARCore.Resource.String.lib_name;
 			global::XamarinARCore.ARLibrary.Resource.String.search_menu_title = global::XamarinARCore.Resource.String.search_menu_title;
 			global::XamarinARCore.ARLibrary.Resource.String.status_bar_notification_info_overflow = global::XamarinARCore.Resource.String.status_bar_notification_info_overflow;
 			global::XamarinARCore.ARLibrary.Resource.String.@__arcore_cancel = global::XamarinARCore.Resource.String.@__arcore_cancel;
@@ -1432,6 +1472,7 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation = global::XamarinARCore.Resource.Style.Widget_AppCompat_Toolbar_Button_Navigation;
 			global::XamarinARCore.ARLibrary.Resource.Style.Widget_Compat_NotificationActionContainer = global::XamarinARCore.Resource.Style.Widget_Compat_NotificationActionContainer;
 			global::XamarinARCore.ARLibrary.Resource.Style.Widget_Compat_NotificationActionText = global::XamarinARCore.Resource.Style.Widget_Compat_NotificationActionText;
+			global::XamarinARCore.ARLibrary.Resource.Style.Widget_Support_CoordinatorLayout = global::XamarinARCore.Resource.Style.Widget_Support_CoordinatorLayout;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.ActionBar = global::XamarinARCore.Resource.Styleable.ActionBar;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.ActionBarLayout = global::XamarinARCore.Resource.Styleable.ActionBarLayout;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.ActionBarLayout_android_layout_gravity = global::XamarinARCore.Resource.Styleable.ActionBarLayout_android_layout_gravity;
@@ -1678,6 +1719,17 @@ namespace XamarinARCore
 			global::XamarinARCore.ARLibrary.Resource.Styleable.CompoundButton_buttonCompat = global::XamarinARCore.Resource.Styleable.CompoundButton_buttonCompat;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.CompoundButton_buttonTint = global::XamarinARCore.Resource.Styleable.CompoundButton_buttonTint;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.CompoundButton_buttonTintMode = global::XamarinARCore.Resource.Styleable.CompoundButton_buttonTintMode;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout = global::XamarinARCore.Resource.Styleable.CoordinatorLayout;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_keylines = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_keylines;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::XamarinARCore.ARLibrary.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::XamarinARCore.Resource.Styleable.CoordinatorLayout_statusBarBackground;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.DrawerArrowToggle = global::XamarinARCore.Resource.Styleable.DrawerArrowToggle;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.DrawerArrowToggle_arrowHeadLength = global::XamarinARCore.Resource.Styleable.DrawerArrowToggle_arrowHeadLength;
 			global::XamarinARCore.ARLibrary.Resource.Styleable.DrawerArrowToggle_arrowShaftLength = global::XamarinARCore.Resource.Styleable.DrawerArrowToggle_arrowShaftLength;
@@ -5055,10 +5107,16 @@ namespace XamarinARCore
 			public const int notify_panel_notification_icon_bg = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int tooltip_frame_dark = 2131165310;
+			public const int sceneform_hand_phone = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int tooltip_frame_light = 2131165311;
+			public const int sceneform_plane = 2131165311;
+			
+			// aapt resource value: 0x7F070080
+			public const int tooltip_frame_dark = 2131165312;
+			
+			// aapt resource value: 0x7F070081
+			public const int tooltip_frame_light = 2131165313;
 			
 			static Drawable()
 			{
@@ -5545,244 +5603,256 @@ namespace XamarinARCore
 			public const int save_overlay_view = 2131230881;
 			
 			// aapt resource value: 0x7F0800A2
-			public const int screen = 2131230882;
+			public const int sceneform_ar_scene_view = 2131230882;
 			
 			// aapt resource value: 0x7F0800A3
-			public const int scroll = 2131230883;
-			
-			// aapt resource value: 0x7F0800A7
-			public const int scrollable = 2131230887;
+			public const int sceneform_hand_image = 2131230883;
 			
 			// aapt resource value: 0x7F0800A4
-			public const int scrollIndicatorDown = 2131230884;
+			public const int sceneform_hand_layout = 2131230884;
 			
 			// aapt resource value: 0x7F0800A5
-			public const int scrollIndicatorUp = 2131230885;
+			public const int screen = 2131230885;
 			
 			// aapt resource value: 0x7F0800A6
-			public const int scrollView = 2131230886;
-			
-			// aapt resource value: 0x7F0800A8
-			public const int search_badge = 2131230888;
-			
-			// aapt resource value: 0x7F0800A9
-			public const int search_bar = 2131230889;
+			public const int scroll = 2131230886;
 			
 			// aapt resource value: 0x7F0800AA
-			public const int search_button = 2131230890;
+			public const int scrollable = 2131230890;
+			
+			// aapt resource value: 0x7F0800A7
+			public const int scrollIndicatorDown = 2131230887;
+			
+			// aapt resource value: 0x7F0800A8
+			public const int scrollIndicatorUp = 2131230888;
+			
+			// aapt resource value: 0x7F0800A9
+			public const int scrollView = 2131230889;
 			
 			// aapt resource value: 0x7F0800AB
-			public const int search_close_btn = 2131230891;
+			public const int search_badge = 2131230891;
 			
 			// aapt resource value: 0x7F0800AC
-			public const int search_edit_frame = 2131230892;
+			public const int search_bar = 2131230892;
 			
 			// aapt resource value: 0x7F0800AD
-			public const int search_go_btn = 2131230893;
+			public const int search_button = 2131230893;
 			
 			// aapt resource value: 0x7F0800AE
-			public const int search_mag_icon = 2131230894;
+			public const int search_close_btn = 2131230894;
 			
 			// aapt resource value: 0x7F0800AF
-			public const int search_plate = 2131230895;
+			public const int search_edit_frame = 2131230895;
 			
 			// aapt resource value: 0x7F0800B0
-			public const int search_src_text = 2131230896;
+			public const int search_go_btn = 2131230896;
 			
 			// aapt resource value: 0x7F0800B1
-			public const int search_voice_btn = 2131230897;
-			
-			// aapt resource value: 0x7F0800B3
-			public const int selected = 2131230899;
+			public const int search_mag_icon = 2131230897;
 			
 			// aapt resource value: 0x7F0800B2
-			public const int select_dialog_listview = 2131230898;
+			public const int search_plate = 2131230898;
+			
+			// aapt resource value: 0x7F0800B3
+			public const int search_src_text = 2131230899;
+			
+			// aapt resource value: 0x7F0800B4
+			public const int search_voice_btn = 2131230900;
+			
+			// aapt resource value: 0x7F0800B6
+			public const int selected = 2131230902;
+			
+			// aapt resource value: 0x7F0800B5
+			public const int select_dialog_listview = 2131230901;
 			
 			// aapt resource value: 0x7F080004
 			public const int SHIFT = 2131230724;
 			
-			// aapt resource value: 0x7F0800B4
-			public const int shortcut = 2131230900;
-			
-			// aapt resource value: 0x7F0800B5
-			public const int showCustom = 2131230901;
-			
-			// aapt resource value: 0x7F0800B6
-			public const int showHome = 2131230902;
-			
 			// aapt resource value: 0x7F0800B7
-			public const int showTitle = 2131230903;
+			public const int shortcut = 2131230903;
 			
 			// aapt resource value: 0x7F0800B8
-			public const int smallLabel = 2131230904;
+			public const int showCustom = 2131230904;
 			
 			// aapt resource value: 0x7F0800B9
-			public const int snackbar_action = 2131230905;
+			public const int showHome = 2131230905;
 			
 			// aapt resource value: 0x7F0800BA
-			public const int snackbar_text = 2131230906;
+			public const int showTitle = 2131230906;
 			
 			// aapt resource value: 0x7F0800BB
-			public const int snap = 2131230907;
+			public const int smallLabel = 2131230907;
 			
 			// aapt resource value: 0x7F0800BC
-			public const int snapMargins = 2131230908;
+			public const int snackbar_action = 2131230908;
 			
 			// aapt resource value: 0x7F0800BD
-			public const int spacer = 2131230909;
+			public const int snackbar_text = 2131230909;
 			
 			// aapt resource value: 0x7F0800BE
-			public const int split_action_bar = 2131230910;
+			public const int snap = 2131230910;
 			
 			// aapt resource value: 0x7F0800BF
-			public const int src_atop = 2131230911;
+			public const int snapMargins = 2131230911;
 			
 			// aapt resource value: 0x7F0800C0
-			public const int src_in = 2131230912;
+			public const int spacer = 2131230912;
 			
 			// aapt resource value: 0x7F0800C1
-			public const int src_over = 2131230913;
+			public const int split_action_bar = 2131230913;
 			
 			// aapt resource value: 0x7F0800C2
-			public const int start = 2131230914;
+			public const int src_atop = 2131230914;
 			
 			// aapt resource value: 0x7F0800C3
-			public const int stretch = 2131230915;
+			public const int src_in = 2131230915;
 			
 			// aapt resource value: 0x7F0800C4
-			public const int submenuarrow = 2131230916;
+			public const int src_over = 2131230916;
 			
 			// aapt resource value: 0x7F0800C5
-			public const int submit_area = 2131230917;
+			public const int start = 2131230917;
 			
 			// aapt resource value: 0x7F0800C6
-			public const int surfaceview = 2131230918;
+			public const int stretch = 2131230918;
+			
+			// aapt resource value: 0x7F0800C7
+			public const int submenuarrow = 2131230919;
+			
+			// aapt resource value: 0x7F0800C8
+			public const int submit_area = 2131230920;
+			
+			// aapt resource value: 0x7F0800C9
+			public const int surfaceview = 2131230921;
 			
 			// aapt resource value: 0x7F080005
 			public const int SYM = 2131230725;
 			
-			// aapt resource value: 0x7F0800C7
-			public const int tabMode = 2131230919;
-			
-			// aapt resource value: 0x7F0800C8
-			public const int tag_accessibility_actions = 2131230920;
-			
-			// aapt resource value: 0x7F0800C9
-			public const int tag_accessibility_clickable_spans = 2131230921;
-			
 			// aapt resource value: 0x7F0800CA
-			public const int tag_accessibility_heading = 2131230922;
+			public const int tabMode = 2131230922;
 			
 			// aapt resource value: 0x7F0800CB
-			public const int tag_accessibility_pane_title = 2131230923;
+			public const int tag_accessibility_actions = 2131230923;
 			
 			// aapt resource value: 0x7F0800CC
-			public const int tag_screen_reader_focusable = 2131230924;
+			public const int tag_accessibility_clickable_spans = 2131230924;
 			
 			// aapt resource value: 0x7F0800CD
-			public const int tag_transition_group = 2131230925;
+			public const int tag_accessibility_heading = 2131230925;
 			
 			// aapt resource value: 0x7F0800CE
-			public const int tag_unhandled_key_event_manager = 2131230926;
+			public const int tag_accessibility_pane_title = 2131230926;
 			
 			// aapt resource value: 0x7F0800CF
-			public const int tag_unhandled_key_listeners = 2131230927;
+			public const int tag_screen_reader_focusable = 2131230927;
 			
 			// aapt resource value: 0x7F0800D0
-			public const int text = 2131230928;
+			public const int tag_transition_group = 2131230928;
 			
 			// aapt resource value: 0x7F0800D1
-			public const int text2 = 2131230929;
-			
-			// aapt resource value: 0x7F0800D6
-			public const int textinput_counter = 2131230934;
-			
-			// aapt resource value: 0x7F0800D7
-			public const int textinput_error = 2131230935;
-			
-			// aapt resource value: 0x7F0800D8
-			public const int textinput_helper_text = 2131230936;
+			public const int tag_unhandled_key_event_manager = 2131230929;
 			
 			// aapt resource value: 0x7F0800D2
-			public const int textSpacerNoButtons = 2131230930;
+			public const int tag_unhandled_key_listeners = 2131230930;
 			
 			// aapt resource value: 0x7F0800D3
-			public const int textSpacerNoTitle = 2131230931;
+			public const int text = 2131230931;
 			
 			// aapt resource value: 0x7F0800D4
-			public const int textStart = 2131230932;
-			
-			// aapt resource value: 0x7F0800D5
-			public const int text_input_password_toggle = 2131230933;
+			public const int text2 = 2131230932;
 			
 			// aapt resource value: 0x7F0800D9
-			public const int time = 2131230937;
+			public const int textinput_counter = 2131230937;
 			
 			// aapt resource value: 0x7F0800DA
-			public const int title = 2131230938;
+			public const int textinput_error = 2131230938;
 			
 			// aapt resource value: 0x7F0800DB
-			public const int titleDividerNoCustom = 2131230939;
+			public const int textinput_helper_text = 2131230939;
+			
+			// aapt resource value: 0x7F0800D5
+			public const int textSpacerNoButtons = 2131230933;
+			
+			// aapt resource value: 0x7F0800D6
+			public const int textSpacerNoTitle = 2131230934;
+			
+			// aapt resource value: 0x7F0800D7
+			public const int textStart = 2131230935;
+			
+			// aapt resource value: 0x7F0800D8
+			public const int text_input_password_toggle = 2131230936;
 			
 			// aapt resource value: 0x7F0800DC
-			public const int title_template = 2131230940;
+			public const int time = 2131230940;
 			
 			// aapt resource value: 0x7F0800DD
-			public const int top = 2131230941;
+			public const int title = 2131230941;
 			
 			// aapt resource value: 0x7F0800DE
-			public const int topPanel = 2131230942;
+			public const int titleDividerNoCustom = 2131230942;
 			
 			// aapt resource value: 0x7F0800DF
-			public const int touch_outside = 2131230943;
+			public const int title_template = 2131230943;
 			
 			// aapt resource value: 0x7F0800E0
-			public const int transition_current_scene = 2131230944;
+			public const int top = 2131230944;
 			
 			// aapt resource value: 0x7F0800E1
-			public const int transition_layout_save = 2131230945;
+			public const int topPanel = 2131230945;
 			
 			// aapt resource value: 0x7F0800E2
-			public const int transition_position = 2131230946;
+			public const int touch_outside = 2131230946;
 			
 			// aapt resource value: 0x7F0800E3
-			public const int transition_scene_layoutid_cache = 2131230947;
+			public const int transition_current_scene = 2131230947;
 			
 			// aapt resource value: 0x7F0800E4
-			public const int transition_transform = 2131230948;
+			public const int transition_layout_save = 2131230948;
 			
 			// aapt resource value: 0x7F0800E5
-			public const int @unchecked = 2131230949;
+			public const int transition_position = 2131230949;
 			
 			// aapt resource value: 0x7F0800E6
-			public const int uniform = 2131230950;
+			public const int transition_scene_layoutid_cache = 2131230950;
 			
 			// aapt resource value: 0x7F0800E7
-			public const int unlabeled = 2131230951;
+			public const int transition_transform = 2131230951;
 			
 			// aapt resource value: 0x7F0800E8
-			public const int up = 2131230952;
+			public const int @unchecked = 2131230952;
 			
 			// aapt resource value: 0x7F0800E9
-			public const int useLogo = 2131230953;
+			public const int uniform = 2131230953;
 			
 			// aapt resource value: 0x7F0800EA
-			public const int view_offset_helper = 2131230954;
+			public const int unlabeled = 2131230954;
 			
 			// aapt resource value: 0x7F0800EB
-			public const int view_tree_saved_state_registry_owner = 2131230955;
+			public const int up = 2131230955;
 			
 			// aapt resource value: 0x7F0800EC
-			public const int visible = 2131230956;
+			public const int useLogo = 2131230956;
 			
 			// aapt resource value: 0x7F0800ED
-			public const int visible_removing_fragment_view_tag = 2131230957;
+			public const int ux_fragment = 2131230957;
 			
 			// aapt resource value: 0x7F0800EE
-			public const int withText = 2131230958;
+			public const int view_offset_helper = 2131230958;
 			
 			// aapt resource value: 0x7F0800EF
-			public const int wrap_content = 2131230959;
+			public const int view_tree_saved_state_registry_owner = 2131230959;
+			
+			// aapt resource value: 0x7F0800F0
+			public const int visible = 2131230960;
+			
+			// aapt resource value: 0x7F0800F1
+			public const int visible_removing_fragment_view_tag = 2131230961;
+			
+			// aapt resource value: 0x7F0800F2
+			public const int withText = 2131230962;
+			
+			// aapt resource value: 0x7F0800F3
+			public const int wrap_content = 2131230963;
 			
 			// aapt resource value: 0x7F080006
 			public const int @__arcore_cancelButton = 2131230726;
@@ -5998,91 +6068,100 @@ namespace XamarinARCore
 			public const int activity_main = 2131427357;
 			
 			// aapt resource value: 0x7F0B001E
-			public const int browser_actions_context_menu_page = 2131427358;
+			public const int activity_ux = 2131427358;
 			
 			// aapt resource value: 0x7F0B001F
-			public const int browser_actions_context_menu_row = 2131427359;
+			public const int browser_actions_context_menu_page = 2131427359;
 			
 			// aapt resource value: 0x7F0B0020
-			public const int custom_dialog = 2131427360;
+			public const int browser_actions_context_menu_row = 2131427360;
 			
 			// aapt resource value: 0x7F0B0021
-			public const int design_bottom_navigation_item = 2131427361;
+			public const int custom_dialog = 2131427361;
 			
 			// aapt resource value: 0x7F0B0022
-			public const int design_bottom_sheet_dialog = 2131427362;
+			public const int design_bottom_navigation_item = 2131427362;
 			
 			// aapt resource value: 0x7F0B0023
-			public const int design_layout_snackbar = 2131427363;
+			public const int design_bottom_sheet_dialog = 2131427363;
 			
 			// aapt resource value: 0x7F0B0024
-			public const int design_layout_snackbar_include = 2131427364;
+			public const int design_layout_snackbar = 2131427364;
 			
 			// aapt resource value: 0x7F0B0025
-			public const int design_layout_tab_icon = 2131427365;
+			public const int design_layout_snackbar_include = 2131427365;
 			
 			// aapt resource value: 0x7F0B0026
-			public const int design_layout_tab_text = 2131427366;
+			public const int design_layout_tab_icon = 2131427366;
 			
 			// aapt resource value: 0x7F0B0027
-			public const int design_menu_item_action_area = 2131427367;
+			public const int design_layout_tab_text = 2131427367;
 			
 			// aapt resource value: 0x7F0B0028
-			public const int design_navigation_item = 2131427368;
+			public const int design_menu_item_action_area = 2131427368;
 			
 			// aapt resource value: 0x7F0B0029
-			public const int design_navigation_item_header = 2131427369;
+			public const int design_navigation_item = 2131427369;
 			
 			// aapt resource value: 0x7F0B002A
-			public const int design_navigation_item_separator = 2131427370;
+			public const int design_navigation_item_header = 2131427370;
 			
 			// aapt resource value: 0x7F0B002B
-			public const int design_navigation_item_subheader = 2131427371;
+			public const int design_navigation_item_separator = 2131427371;
 			
 			// aapt resource value: 0x7F0B002C
-			public const int design_navigation_menu = 2131427372;
+			public const int design_navigation_item_subheader = 2131427372;
 			
 			// aapt resource value: 0x7F0B002D
-			public const int design_navigation_menu_item = 2131427373;
+			public const int design_navigation_menu = 2131427373;
 			
 			// aapt resource value: 0x7F0B002E
-			public const int design_text_input_password_icon = 2131427374;
+			public const int design_navigation_menu_item = 2131427374;
 			
 			// aapt resource value: 0x7F0B002F
-			public const int mtrl_layout_snackbar = 2131427375;
+			public const int design_text_input_password_icon = 2131427375;
 			
 			// aapt resource value: 0x7F0B0030
-			public const int mtrl_layout_snackbar_include = 2131427376;
+			public const int mtrl_layout_snackbar = 2131427376;
 			
 			// aapt resource value: 0x7F0B0031
-			public const int notification_action = 2131427377;
+			public const int mtrl_layout_snackbar_include = 2131427377;
 			
 			// aapt resource value: 0x7F0B0032
-			public const int notification_action_tombstone = 2131427378;
+			public const int notification_action = 2131427378;
 			
 			// aapt resource value: 0x7F0B0033
-			public const int notification_template_custom_big = 2131427379;
+			public const int notification_action_tombstone = 2131427379;
 			
 			// aapt resource value: 0x7F0B0034
-			public const int notification_template_icon_group = 2131427380;
+			public const int notification_template_custom_big = 2131427380;
 			
 			// aapt resource value: 0x7F0B0035
-			public const int notification_template_part_chronometer = 2131427381;
+			public const int notification_template_icon_group = 2131427381;
 			
 			// aapt resource value: 0x7F0B0036
-			public const int notification_template_part_time = 2131427382;
+			public const int notification_template_part_chronometer = 2131427382;
 			
 			// aapt resource value: 0x7F0B0037
-			public const int select_dialog_item_material = 2131427383;
+			public const int notification_template_part_time = 2131427383;
 			
 			// aapt resource value: 0x7F0B0038
-			public const int select_dialog_multichoice_material = 2131427384;
+			public const int sceneform_plane_discovery_layout = 2131427384;
 			
 			// aapt resource value: 0x7F0B0039
-			public const int select_dialog_singlechoice_material = 2131427385;
+			public const int sceneform_ux_fragment_layout = 2131427385;
 			
 			// aapt resource value: 0x7F0B003A
-			public const int support_simple_spinner_dropdown_item = 2131427386;
+			public const int select_dialog_item_material = 2131427386;
+			
+			// aapt resource value: 0x7F0B003B
+			public const int select_dialog_multichoice_material = 2131427387;
+			
+			// aapt resource value: 0x7F0B003C
+			public const int select_dialog_singlechoice_material = 2131427388;
+			
+			// aapt resource value: 0x7F0B003D
+			public const int support_simple_spinner_dropdown_item = 2131427389;
 			
 			// aapt resource value: 0x7F0B0000
 			public const int @__arcore_education = 2131427328;
@@ -6124,6 +6203,42 @@ namespace XamarinARCore
 			
 			// aapt resource value: 0x7F0D0000
 			public const int keep_arcore = 2131558400;
+			
+			// aapt resource value: 0x7F0D0001
+			public const int sceneform_camera_material = 2131558401;
+			
+			// aapt resource value: 0x7F0D0002
+			public const int sceneform_default_light_probe = 2131558402;
+			
+			// aapt resource value: 0x7F0D0003
+			public const int sceneform_face_mesh = 2131558403;
+			
+			// aapt resource value: 0x7F0D0004
+			public const int sceneform_face_mesh_occluder = 2131558404;
+			
+			// aapt resource value: 0x7F0D0005
+			public const int sceneform_footprint = 2131558405;
+			
+			// aapt resource value: 0x7F0D0006
+			public const int sceneform_opaque_colored_material = 2131558406;
+			
+			// aapt resource value: 0x7F0D0007
+			public const int sceneform_opaque_textured_material = 2131558407;
+			
+			// aapt resource value: 0x7F0D0008
+			public const int sceneform_plane_material = 2131558408;
+			
+			// aapt resource value: 0x7F0D0009
+			public const int sceneform_plane_shadow_material = 2131558409;
+			
+			// aapt resource value: 0x7F0D000A
+			public const int sceneform_transparent_colored_material = 2131558410;
+			
+			// aapt resource value: 0x7F0D000B
+			public const int sceneform_transparent_textured_material = 2131558411;
+			
+			// aapt resource value: 0x7F0D000C
+			public const int sceneform_view_renderable = 2131558412;
 			
 			static Raw()
 			{
@@ -6262,28 +6377,31 @@ namespace XamarinARCore
 			public const int hide_bottom_view_on_scroll_behavior = 2131623981;
 			
 			// aapt resource value: 0x7F0E002E
-			public const int mtrl_chip_close_icon_content_description = 2131623982;
+			public const int lib_name = 2131623982;
 			
 			// aapt resource value: 0x7F0E002F
-			public const int password_toggle_content_description = 2131623983;
+			public const int mtrl_chip_close_icon_content_description = 2131623983;
 			
 			// aapt resource value: 0x7F0E0030
-			public const int path_password_eye = 2131623984;
+			public const int password_toggle_content_description = 2131623984;
 			
 			// aapt resource value: 0x7F0E0031
-			public const int path_password_eye_mask_strike_through = 2131623985;
+			public const int path_password_eye = 2131623985;
 			
 			// aapt resource value: 0x7F0E0032
-			public const int path_password_eye_mask_visible = 2131623986;
+			public const int path_password_eye_mask_strike_through = 2131623986;
 			
 			// aapt resource value: 0x7F0E0033
-			public const int path_password_strike_through = 2131623987;
+			public const int path_password_eye_mask_visible = 2131623987;
 			
 			// aapt resource value: 0x7F0E0034
-			public const int search_menu_title = 2131623988;
+			public const int path_password_strike_through = 2131623988;
 			
 			// aapt resource value: 0x7F0E0035
-			public const int status_bar_notification_info_overflow = 2131623989;
+			public const int search_menu_title = 2131623989;
+			
+			// aapt resource value: 0x7F0E0036
+			public const int status_bar_notification_info_overflow = 2131623990;
 			
 			// aapt resource value: 0x7F0E0000
 			public const int @__arcore_cancel = 2131623936;
