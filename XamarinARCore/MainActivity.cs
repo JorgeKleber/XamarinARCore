@@ -17,7 +17,7 @@ using XamarinARCore.Controller.ARCore;
 
 namespace XamarinARCore
 {
-	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
+	[Activity(Label = "@string/app_name", Theme = "@style/AppTheme")]
 	public class MainActivity : AppCompatActivity
 	{
 		private string TAG = typeof(MainActivity).Name;
