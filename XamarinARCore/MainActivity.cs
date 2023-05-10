@@ -4,6 +4,7 @@ using Android.Opengl;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
+using Android.Widget;
 using AndroidX.AppCompat.App;
 using Google.Android.Material.Snackbar;
 using Google.AR.Core;
@@ -34,6 +35,8 @@ namespace XamarinARCore
         /// Renderizador - Um componente de UI para renderizar imagens na tela.
         /// </summary>
         private GLSurfaceView surfaceView;
+        private FrameLayout myFrameLayout;
+        private Button myButton;
 
         private bool userRequestedInstall = true;
         //responsável por iniciar a sessão.
@@ -58,6 +61,8 @@ namespace XamarinARCore
 
         #endregion
 
+        private bool isArActivated = false;
+
         #region ANDROID LIFE CIRCLE
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -67,20 +72,99 @@ namespace XamarinARCore
             SetContentView(Resource.Layout.activity_main);
 
             //referenciado o renderizador.
-            surfaceView = FindViewById<GLSurfaceView>(Resource.Id.surfaceview);
+            //surfaceView = FindViewById<GLSurfaceView>(Resource.Id.surfaceview);
 
-            //configurando o renderizador
-            surfaceView.PreserveEGLContextOnPause = true;
-            surfaceView.SetEGLContextClientVersion(2);
-            surfaceView.SetEGLConfigChooser(8, 8, 8, 8, 16, 0);
-            surfaceView.SetRenderer(this);
-            surfaceView.RenderMode = Rendermode.Continuously;
-            surfaceView.SetWillNotDraw(false);
+            myFrameLayout = FindViewById<FrameLayout>(Resource.Id.myFrameView);
+            myButton = FindViewById<Button>(Resource.Id.myButton);
 
-            displayRotationHelper = new DisplayRotationHelper(Platform.CurrentActivity);
+			myButton.Click += MyButton_Click;
         }
 
-        protected override async void OnResume()
+		private void MyButton_Click(object sender, EventArgs e)
+		{
+            if (isArActivated == false)
+            {
+                surfaceView = new GLSurfaceView(this);
+
+                //configurando o renderizador
+                surfaceView.PreserveEGLContextOnPause = true;
+                surfaceView.SetEGLContextClientVersion(2);
+                surfaceView.SetEGLConfigChooser(8, 8, 8, 8, 16, 0);
+                surfaceView.SetRenderer(this);
+                surfaceView.RenderMode = Rendermode.Continuously;
+                surfaceView.SetWillNotDraw(false);
+
+                myFrameLayout.AddView(surfaceView);
+
+                displayRotationHelper = new DisplayRotationHelper(Platform.CurrentActivity);
+
+                try
+                {
+                    if (session is null)
+                    {
+                        var installResult = ArCoreApk.Instance.RequestInstall(Platform.CurrentActivity, userRequestedInstall);
+
+                        if (installResult == ArCoreApk.InstallStatus.Installed)
+                        {
+                            // Success: Safe to create the AR session.
+                            session = new Session(this);
+                        }
+                        else if (installResult == ArCoreApk.InstallStatus.InstallRequested)
+                        {
+                            // When this method returns `INSTALL_REQUESTED`:
+                            // 1. ARCore pauses this activity.
+                            // 2. ARCore prompts the user to install or update Google Play
+                            //    Services for AR (market://details?id=com.google.ar.core).
+                            // 3. ARCore downloads the latest device profile data.
+                            // 4. ARCore resumes this activity. The next invocation of
+                            //    requestInstall() will either return `INSTALLED` or throw an
+                            //    exception if the installation or update did not succeed.
+                            userRequestedInstall = false;
+                            return;
+                        }
+
+                        // Set a camera configuration that usese the front-facing camera.
+                        var filter = new CameraConfigFilter(session).SetFacingDirection(CameraConfig.FacingDirection.Front);
+
+                        var cameraConfig = session.GetSupportedCameraConfigs(filter)[0];
+                        session.CameraConfig = cameraConfig;
+
+                        var config = new Config(session);
+                        config.SetAugmentedFaceMode(Config.AugmentedFaceMode.Mesh3d);
+                        session.Configure(config);
+                    }
+                }
+                catch (UnavailableUserDeclinedInstallationException ex)
+                {
+                    //TODO: Feedback for user that dont want to install arcore
+                    return;
+                }
+
+                session.Resume();
+                //if (View is GLSurfaceView surfaceView)
+                //    surfaceView.OnResume();
+                surfaceView.OnResume();
+
+                displayRotationHelper.onResume();
+
+                isArActivated = true;
+
+				Toast.MakeText(this, "GLSurfaceview was created.", ToastLength.Short).Show();
+			}
+            else
+            {
+                session.Pause();
+                surfaceView.OnPause();
+
+                myFrameLayout.RemoveView(surfaceView);
+
+                Toast.MakeText(this, "GLSurfaceview was deleted.", ToastLength.Short).Show();
+
+                isArActivated = false;
+            }
+		}
+
+		protected override async void OnResume()
         {
             base.OnResume();
             await OnResumeAsync();
@@ -103,55 +187,6 @@ namespace XamarinARCore
                 if (permissionResult != PermissionStatus.Granted)
                     return;
             }
-
-            try
-            {
-                if (session is null)
-                {
-                    var installResult = ArCoreApk.Instance.RequestInstall(Platform.CurrentActivity, userRequestedInstall);
-
-                    if (installResult == ArCoreApk.InstallStatus.Installed)
-                    {
-                        // Success: Safe to create the AR session.
-                        session = new Session(this);
-                    }
-                    else if (installResult == ArCoreApk.InstallStatus.InstallRequested)
-                    {
-                        // When this method returns `INSTALL_REQUESTED`:
-                        // 1. ARCore pauses this activity.
-                        // 2. ARCore prompts the user to install or update Google Play
-                        //    Services for AR (market://details?id=com.google.ar.core).
-                        // 3. ARCore downloads the latest device profile data.
-                        // 4. ARCore resumes this activity. The next invocation of
-                        //    requestInstall() will either return `INSTALLED` or throw an
-                        //    exception if the installation or update did not succeed.
-                        userRequestedInstall = false;
-                        return;
-                    }
-
-                    // Set a camera configuration that usese the front-facing camera.
-                    var filter = new CameraConfigFilter(session).SetFacingDirection(CameraConfig.FacingDirection.Front);
-
-                    var cameraConfig = session.GetSupportedCameraConfigs(filter)[0];
-                    session.CameraConfig = cameraConfig;
-
-                    var config = new Config(session);
-                    config.SetAugmentedFaceMode(Config.AugmentedFaceMode.Mesh3d);
-                    session.Configure(config);
-                }
-            }
-            catch (UnavailableUserDeclinedInstallationException ex)
-            {
-                //TODO: Feedback for user that dont want to install arcore
-                return;
-            }
-
-            session.Resume();
-            //if (View is GLSurfaceView surfaceView)
-            //    surfaceView.OnResume();
-            surfaceView.OnResume();
-
-            displayRotationHelper.onResume();
         }
 
         protected override void OnPause()
