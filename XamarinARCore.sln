@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33027.164
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinARCore", "XamarinARCore\XamarinARCore.csproj", "{C0046924-BB50-418C-91B9-8C03BCCF41D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinARCore.Sceneform", "XamarinARCore.Sceneform\XamarinARCore.Sceneform.csproj", "{79898B0C-637E-43D7-8035-02B42913018C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,12 @@ Global
 		{C0046924-BB50-418C-91B9-8C03BCCF41D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0046924-BB50-418C-91B9-8C03BCCF41D2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C0046924-BB50-418C-91B9-8C03BCCF41D2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79898B0C-637E-43D7-8035-02B42913018C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
